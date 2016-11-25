@@ -41,7 +41,7 @@
 
                <div class="media">
                    <a class="media-left" href="{{ url()->route('articles.index',$user->id) }}" title="{{ Auth::user()->name }}">
-                       <img class="media-object" id="imgUrl" src="{{ url('/avatar/'.Auth::user()->logo) }}" alt="{{ Auth::user()->name }}" width="60" height="60">
+                       <img class="media-object" id="imgUrl" src="{{ asset(Auth::user()->logo) }}" alt="{{ Auth::user()->name }}" width="60" height="60">
                    </a>
                    <div class="media-body">
                        <h6 class="media-heading" id="userName">{{ Auth::user()->name }}</h6>

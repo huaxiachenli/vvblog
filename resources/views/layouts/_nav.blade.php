@@ -56,8 +56,7 @@
                 @endif
 
             </ul>
-            <form class="form-inline float-lg-right" action="/users/{{ $user->id }}/search" method="post">
-                {{ csrf_field() }}
+            <form class="form-inline float-lg-right" action="/users/{{ $user->id }}/search" method="get">
                 <input class="form-control" type="text" placeholder="标签&标题" name="search">
                 <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
             </form>

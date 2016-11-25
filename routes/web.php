@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix'=>'users/{user_id}'],function (){
     Route::get('dashboard','UsersController@dashboard')->name('dashboard');
-    Route::post('search','ArticlesController@search')->name('search');
+    Route::get('search','ArticlesController@search')->name('search');
     Route::resource('articles','ArticlesController');
     Route::resource('categories','CategoriesController',['only'=>['store','destory','show']]);
     Route::resource('child_categories','ChildCategoriesController',['only'=>['store','destory','show']]);

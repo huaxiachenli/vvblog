@@ -16,12 +16,12 @@
 
 <fieldset class="form-group">
     {{ Form::label('logo','LOGO') }}
-    {{ Form::file('logo',['class'=>'form-control-file','required'=>'required']) }}
+    {{ Form::file('logo',['class'=>'form-control-file']) }}
 </fieldset>
 
 <fieldset class="form-group">
     {{ Form::label('tag','标签') }}
-    {{ Form::text('tag',null,['class'=>'form-control','id'=>'tag','required'=>'required']) }}
+    {{ Form::select('tag[]',Auth::user()->tags->pluck('name','name'),null,['class'=>'form-control','id'=>'tag','required'=>'required','multiple']) }}
 </fieldset>
 
 <fieldset class="form-group">
@@ -32,3 +32,24 @@
 <fieldset class="form-group">
     {{ Form::submit('提交',['class'=>'btn btn-block btn-primary' ]) }}
 </fieldset>
+@push('scripts')
+<script src="/js/markdown.js"></script>
+<script src="/js/to-markdown.min.js"></script>
+<script src="/js/bootstrap-markdown.js"></script>
+<script src="/js/bootstrap-markdown.zh.js"></script>
+
+<script>
+
+    $('#markdown').markdown({
+        iconlibrary:'fa',
+        language:'zh',
+    });
+</script>
+<script type="text/javascript">
+    $('#tag').select2({tags:true});
+</script>
+@endpush
+@push('styles')
+{{--<link rel="stylesheet" href="/css/bootstrap-markdown.min.css">--}}
+{{--<link rel="stylesheet" href="/css/jquery.tag-editor.css">--}}
+@endpush

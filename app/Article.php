@@ -22,7 +22,7 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->hasMany(Tag::class);
+        return $this->belongsToMany(Tag::class)->withPivot('user_id')->withTimestamps();
     }
 
     public function likeables(){
@@ -42,6 +42,10 @@ class Article extends Model
     public function collected_users()
     {
         return $this->belongsToMany(User::class,'collects');
+    }
+
+    public function getTagListAttribute(){
+        return $this->tags->pluck('id')->all();
     }
 
 

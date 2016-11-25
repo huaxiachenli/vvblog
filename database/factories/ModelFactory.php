@@ -29,8 +29,10 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
     $categoryIds = App\Category::pluck('id')->all();
     return [
         'title' => $faker->sentence(),
+        'logo'=>$faker->imageUrl(),
         'content' => $faker->paragraph,
         'user_id'=>$faker->randomElement($userIds),
+        'intro'=>$faker->sentence(),
         'child_category_id'=>$faker->randomElement($childCategoryIds),
         'category_id'=>$faker->randomElement($categoryIds),
     ];
@@ -81,16 +83,5 @@ $factory->define(App\ChildCategory::class, function (Faker\Generator $faker) {
         'name' => $faker->randomElement(['HTML','javascript','ps','mysql','php','ruby','java']),
         'user_id'=>$faker->randomElement($userIds),
         'category_id'=>$faker->randomElement($categories),
-    ];
-});
-
-$factory->define(App\Comment::class, function (Faker\Generator $faker) {
-    $userIds = \App\User::pluck('id')->toArray();
-    $articleIds = \App\Article::pluck('id')->toArray();
-    return [
-        'user_id'=>$faker->randomElement($userIds),
-        'article_id'=>$faker->randomElement($articleIds),
-        'content' => $faker->paragraph()
-
     ];
 });

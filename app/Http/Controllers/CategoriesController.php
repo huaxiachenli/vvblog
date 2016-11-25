@@ -83,7 +83,7 @@ class CategoriesController extends Controller
     {
         //
         $category = Category::findOrFail($id);
-        $articles = $category->articles;
+        $articles = $category->articles()->paginate(5);
         $user = User::findOrFail($user_id);
 
         return view('categories.show')->with(['articles'=>$articles,'user'=>$user,'category'=>$category]);

@@ -15,6 +15,10 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->string('logo')->nullable();
+            $table->string('intro');
+            $table->unsignedInteger('child_category_id');
+            $table->unsignedInteger('category_id');
             $table->text('content');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

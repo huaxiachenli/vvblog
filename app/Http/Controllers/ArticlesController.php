@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\ArticleTag;
 use App\ChildCategory;
 use App\Category;
-use App\Picture;
 use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class ArticlesController extends Controller
 
 
         $user = User::findOrfail($user_id);
-        $articles = $user->articles->reverse();
+        $articles = $user->articles()->latest()->paginate(5);
         return view('articles.index')->with(['articles'=>$articles,'user'=>$user]);
     }
 
@@ -47,8 +47,9 @@ class ArticlesController extends Controller
     {
         //
         $user = User::findOrFail($user_id);
+        $tags = \App\Tag::pluck('name', 'id');
         $categories = $user->categories;
-        return view('articles.create')->with(['user'=>$user,'categories'=>$categories]);
+        return view('articles.create')->with(['user'=>$user,'categories'=>$categories,'tags'=>$tags]);
     }
 
     /**
@@ -64,6 +65,13 @@ class ArticlesController extends Controller
 
         $user = User::findOrFail($user_id);
         $child_category = ChildCategory::findOrFail($request->input('child_category_id'));
+        if ($request->hasFile('logo')){
+            $filename = $request->file('logo')->getClientOriginalName();
+            $path = $request->file('logo')->move('uploads/logos/',$filename);
+
+        }else{
+            $path=null;
+        }
 
         $article = new Article();
 
@@ -74,31 +82,29 @@ class ArticlesController extends Controller
             'category_id'=>$child_category->category->id,
             'child_category_id'=>$child_category->id,
             'intro'=>$request->input('intro'),
+            'logo'=>$path
         ]);
         if ($article->save()){
-            $tags = explode(',',$request->input('tag'));
-            foreach ($tags as $tag){
-                Tag::create([
-                    'user_id'=>Auth::user()->id,
-                    'article_id'=>$article->id,
-                    'name'=>$tag,
 
-                ]);
+            foreach ($request->tag as $tag){
+                $currentTag = Tag::firstOrCreate(['name'=>$tag]);
+                $article->tags()->attach($currentTag,['user_id'=>Auth::user()->id]);
             }
-            if ($request->hasFile('logo')){
-                $filename = $request->file('logo')->getClientOriginalName();
-                $path = $request->file('logo')->move('uploads/logos/',$article->id.$filename);
-                $picture = new Picture();
-                $picture->fill([
-                    'user_id'=>Auth::user()->id,
-                    'name'=>'articleLogo',
-                    'pictureable_id'=>$article->id,
-                    'pictureable_type'=>Article::class,
-                    'field'=>'logo',
-                    'url'=>$path,
-                ]);
-                $picture->save();
-            }
+
+//            if ($request->hasFile('logo')){
+//                $filename = $request->file('logo')->getClientOriginalName();
+//                $path = $request->file('logo')->move('uploads/logos/',$article->id.$filename);
+//                $picture = new Picture();
+//                $picture->fill([
+//                    'user_id'=>Auth::user()->id,
+//                    'name'=>'articleLogo',
+//                    'pictureable_id'=>$article->id,
+//                    'pictureable_type'=>Article::class,
+//                    'field'=>'logo',
+//                    'url'=>$path,
+//                ]);
+//                $picture->save();
+//            }
             \Session::flash('success','保存成功');
             return redirect()->route('articles.show',[$article->user_id,$article->id])->with(['user'=>$user]);
         }else{
@@ -133,8 +139,9 @@ class ArticlesController extends Controller
         $user = User::findOrFail($user_id);
         //
         $article = Article::find($id);
+        $tags = \App\Tag::pluck('name');
 
-        return view('articles.edit')->with(['article'=>$article,'user'=>$user]);
+        return view('articles.edit')->with(['article'=>$article,'user'=>$user,'tags'=>$tags]);
     }
 
     /**
@@ -149,14 +156,26 @@ class ArticlesController extends Controller
 
         //
         $user = User::findOrFail($user_id);
+        $child_category = ChildCategory::findOrFail($request->input('child_category_id'));
         $article = Article::find($id);
         $article->update([
+            'user_id'=>Auth::user()->id,
             'title'=>$request->input('title'),
             'content'=>$request->input('content'),
+            'category_id'=>$child_category->category->id,
+            'child_category_id'=>$child_category->id,
             'intro'=>$request->input('intro'),
         ]);
+        ArticleTag::where('article_id',$id)->delete();
+        foreach ($request->tag as $tag){
+            $collectTag = Tag::firstOrCreate(['name'=>$tag]);
+
+               ArticleTag::create(['user_id'=>Auth::user()->id,'article_id'=>$id,'tag_id'=>$collectTag->id]);
+
+        }
+
         \Session::flash('success','保存成功');
-        return redirect()->route('articles.show',$id)->with(['user'=>$user,'article'=>$article]);
+        return redirect()->route('articles.show',[Auth::user()->id,$id])->with(['user'=>$user,'article'=>$article]);
     }
 
     /**
@@ -188,14 +207,14 @@ class ArticlesController extends Controller
 
     public function category($user_id,$category_id){
         $category = Category::findOrFail($category_id);
-        $articles = $category->articles;
+        $articles = $category->articles()->paginate(5);
         $user = User::findOrFail($user_id);
 
         return view('categories.show')->with(['articles'=>$articles,'user'=>$user,'category'=>$category]);
     }
     public function child_category($user_id,$child_category_id){
         $child_category = ChildCategory::findOrFail($child_category_id);
-        $articles = ChildCategory::findOrFail($child_category_id)->articles;
+        $articles = ChildCategory::findOrFail($child_category_id)->articles()->paginate(5);
         $user = User::findOrFail($user_id);
 
         return view('child_categories.show')->with(['articles'=>$articles,'user'=>$user,'child_category'=>$child_category]);
@@ -204,7 +223,9 @@ class ArticlesController extends Controller
     public function search(Request $request,$user_id)
     {
         $user = User::findOrFail($user_id);
-        $articles = $user->articles()->where('title','like','%'.$request->input('search').'%')->get();
+        $articles = $user->articles()
+            ->where('title','like','%'.$request->input('search').'%')
+            ->orWhere('intro','like','%'.$request->input('search').'%')->paginate(5);
         return view('articles.search')->with(['articles'=>$articles,'user'=>$user]);
     }
 

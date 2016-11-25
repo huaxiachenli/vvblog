@@ -14,10 +14,37 @@ require('laravel-elixir-vue-2');
  |
  */
 
-// elixir((mix) => {
-//     mix.sass('app.scss')
-//        .webpack('app.js');
-// });
-elixir(function(mix) {
-    mix.sass('application.scss');
+elixir((mix) => {
+    mix.sass('app.scss')
+       .webpack('app.js');
 });
+// elixir(function(mix){
+//     mix.sass('app.scss');
+//     mix.scripts([
+//         'app.js',
+//         'application.js',
+//
+//         'bootstrap-markdown.js',
+//         'bootstrap-markdown.zh.js',
+//         'jquery.hotkeys.js',
+//         'markdown.js',
+//         'select2.js'
+//     ],'public/js/final.js');
+// })
+// elixir(function(mix) {
+//     mix.scripts([
+//
+//         './public/js/app.js',
+//         'bootstrap-markdown.js',
+//         'bootstrap-markdown.zh.js',
+//         'jquery.hotkeys.js',
+//         'markdown.js',
+//         'select2.js',
+//         'to-markdown.min.js',
+//         'application.js',
+//
+//     ]).sass('app.scss');
+// });
+// elixir(function(mix) {
+//     mix.sass('application.scss');
+// });

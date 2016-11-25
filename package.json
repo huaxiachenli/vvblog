@@ -14,5 +14,9 @@
     "lodash": "^4.16.2",
     "vue": "^2.0.1",
     "vue-resource": "^1.0.3"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.5",
+    "select2": "^4.0.3"
   }
 }

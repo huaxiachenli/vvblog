@@ -16,11 +16,7 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedInteger('article_id');
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->unique(['name','article_id']);
+            $table->unique('name');
             $table->timestamps();
         });
     }

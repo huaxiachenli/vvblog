@@ -61,7 +61,7 @@ class ChildCategoriesController extends Controller
     {
         //
         $child_category = ChildCategory::findOrFail($id);
-        $articles = ChildCategory::findOrFail($id)->articles;
+        $articles = ChildCategory::findOrFail($id)->articles()->paginate(5);
         $user = User::findOrFail($user_id);
 
         return view('child_categories.show')->with(['articles'=>$articles,'user'=>$user,'child_category'=>$child_category]);

@@ -6,11 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <section id="post-list">
-                    @foreach($articles as $article)
-                        @include('articles._article_list')
-                    @endforeach
-                </section>
+                @include('articles._article_list')
             </div>
             <div class="col-md-4">
 

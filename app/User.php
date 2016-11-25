@@ -51,7 +51,7 @@ class User extends Authenticatable
      */
     public function tags()
     {
-        return $this->hasMany(Tag::class);
+        return $this->belongsToMany(Tag::class,'article_tag')->withTimestamps();
     }
 
     /**
