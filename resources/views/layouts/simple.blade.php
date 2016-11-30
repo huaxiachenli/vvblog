@@ -12,10 +12,10 @@
 
     <!-- Styles -->
 
-    {{--<link href="/css/app.css" rel="stylesheet">--}}
+    <link href="/css/app.css" rel="stylesheet">
     {{--<link rel="stylesheet" href="/css/bootstrap.min.css">--}}
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.css">
+    {{--<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">--}}
+    {{--<link rel="stylesheet" href="/css/font-awesome.css">--}}
     <link rel="stylesheet" href="/css/application.css">
 {{--<link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/9.8.0/languages/x86asm.min.js">--}}
 @stack('styles')
@@ -35,11 +35,12 @@
 
 
 <!-- Scripts -->
-<script src="/js/jquery.min.js"></script>
+<script src="/js/app.js"></script>
+{{--<script src="/js/jquery.min.js"></script>--}}
 {{--<script src="http://cdn.bootcss.com/jquery/1.10.0/jquery.min.js"></script>--}}
 <script src="/js/application.js"></script>
 {{--<script src="/js/bootstrap.min.js"></script>--}}
-<script src="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
+{{--<script src="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>--}}
 
 
 

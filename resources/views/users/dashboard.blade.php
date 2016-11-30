@@ -6,7 +6,7 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-block">
-                        <img src="{{ asset('/avatar/'.Auth::user()->logo) }}" alt="">
+                        <img src="{{ asset(Auth::user()->logo) }}" alt="">
                         <h3 class="text-xs-center">{{ Auth::user()->name }}</h3>
                         <p class="text-xs-center">
                             @if($professions = Auth::user()->professions)
@@ -17,7 +17,7 @@
                                 <span class="tag tag-pill tag-default">文字爱好者</span>
                             @endif
 
-                            <span class="tag tag-pill tag-default">ruby工程师</span>
+                            {{--<span class="tag tag-pill tag-default">ruby工程师</span>--}}
                         </p>
                         <p>
                             <a href="{{ url()->route('articles.create',Auth::user()->id) }}" class="btn btn-block btn-outline-danger">发表文章</a>
@@ -34,10 +34,10 @@
                                 <a class="nav-link active" data-toggle="tab" href="#home" role="tab">主面板</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#profile" role="tab">修改个人信息</a>
+                                <a class="nav-link" data-toggle="tab" href="#profile" role="tab">个人信息</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#category" role="tab">菜单配置</a>
+                                <a class="nav-link" data-toggle="tab" href="#category" role="tab">菜单</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#article-table" role="tab">文章</a>

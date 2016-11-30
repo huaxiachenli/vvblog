@@ -155,7 +155,7 @@ class ArticlesController extends Controller
     {
 
         //
-        $user = User::findOrFail($user_id);
+//        $user = User::findOrFail($user_id);
         $child_category = ChildCategory::findOrFail($request->input('child_category_id'));
         $article = Article::find($id);
         $article->update([

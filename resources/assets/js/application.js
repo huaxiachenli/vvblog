@@ -73,6 +73,7 @@ $(document).ready(function(){
                    data.profession.name+
                    ' <i class="fa fa-times removeProfession" aria-hidden="true"></i>'+
                  '</li>');
+               $('#addProfession').find('input').val('');
            }
        })
 

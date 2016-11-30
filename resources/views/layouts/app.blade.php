@@ -45,6 +45,7 @@
 
     <script src="/js/app.js"></script>
     <script src="/js/select2.js"></script>
+    <script src="/js/vue.js"></script>
     <script src="/js/application.js"></script>
     @stack('scripts')
 

@@ -11,7 +11,8 @@
         "graham-campbell/markdown": "^7.0",
         "barryvdh/laravel-debugbar": "^2.3",
         "Intervention/image": "^2.3",
-        "barryvdh/laravel-ide-helper": "^2.2"
+        "barryvdh/laravel-ide-helper": "^2.2",
+        "laracasts/utilities": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
