@@ -27,7 +27,7 @@
                        </span>
                    </p>
                    <div>
-                       {!! Markdown::convertToHtml($article->content) !!}
+                       {!! $article->content !!}
                    </div>
                </div>
 

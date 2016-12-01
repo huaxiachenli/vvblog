@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use cebe\markdown\GithubMarkdown;
 class Article extends Model
 {
     //
@@ -47,7 +47,11 @@ class Article extends Model
     public function getTagListAttribute(){
         return $this->tags->pluck('id')->all();
     }
-
+    public function getContentAttribute($value)
+    {
+        $parse = new GithubMarkdown();
+        return $parse->parse($value);
+    }
 
 
 

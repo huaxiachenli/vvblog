@@ -57,7 +57,7 @@ class CommentsController extends Controller
             'floor'=>$article->comments->count()+1,
         ]);
         $comment->save();
-        return response()->json(['status'=>0,'commentId'=>$comment->id,'content'=>Markdown::convertToHtml($comment->content),'createdAt'=>$comment->created_at->toDateTimeString(),'floor'=>$comment->floor]);
+        return response()->json(['status'=>0,'commentId'=>$comment->id,'content'=>$comment->content,'createdAt'=>$comment->created_at->toDateTimeString(),'floor'=>$comment->floor]);
     }
 
     /**

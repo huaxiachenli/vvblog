@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use cebe\markdown\GithubMarkdown;
 
 class Comment extends Model
 {
@@ -13,5 +14,10 @@ class Comment extends Model
     }
     public function user(){
         return $this->belongsTo(User::class);
+    }
+    public function getContentAttribute($value)
+    {
+        $parse = new GithubMarkdown();
+        return $parse->parse($value);
     }
 }

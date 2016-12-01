@@ -7,6 +7,10 @@ $.ajaxSetup({
     }
 });
 
+var vue = new Vue({
+
+});
+
 
 function deleteCate(currentNode) {
     if(confirm('确认删除菜单吗？')){

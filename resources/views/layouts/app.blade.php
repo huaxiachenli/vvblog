@@ -48,6 +48,6 @@
     <script src="/js/vue.js"></script>
     <script src="/js/application.js"></script>
     @stack('scripts')
-
+    @include('layouts.var')
 </body>
 </html>

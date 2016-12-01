@@ -166,9 +166,9 @@ return [
          * 安装的类
          */
         Collective\Html\HtmlServiceProvider::class,
-        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
+
 
         /*
          * Package Service Providers...
@@ -237,8 +237,8 @@ return [
          */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Javascript'=>\Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
     ],
 
 ];

@@ -8,11 +8,11 @@
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
         "laravelcollective/html": "^5.3",
-        "graham-campbell/markdown": "^7.0",
         "barryvdh/laravel-debugbar": "^2.3",
         "Intervention/image": "^2.3",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "laracasts/utilities": "^2.1"
+        "laracasts/utilities": "^2.1",
+        "cebe/markdown": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

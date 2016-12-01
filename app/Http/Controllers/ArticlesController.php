@@ -10,7 +10,7 @@ use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Javascript;
 
 class ArticlesController extends Controller
 {
@@ -31,7 +31,6 @@ class ArticlesController extends Controller
     public function index($user_id)
     {
         //
-
 
         $user = User::findOrfail($user_id);
         $articles = $user->articles()->latest()->paginate(5);
@@ -90,21 +89,6 @@ class ArticlesController extends Controller
                 $currentTag = Tag::firstOrCreate(['name'=>$tag]);
                 $article->tags()->attach($currentTag,['user_id'=>Auth::user()->id]);
             }
-
-//            if ($request->hasFile('logo')){
-//                $filename = $request->file('logo')->getClientOriginalName();
-//                $path = $request->file('logo')->move('uploads/logos/',$article->id.$filename);
-//                $picture = new Picture();
-//                $picture->fill([
-//                    'user_id'=>Auth::user()->id,
-//                    'name'=>'articleLogo',
-//                    'pictureable_id'=>$article->id,
-//                    'pictureable_type'=>Article::class,
-//                    'field'=>'logo',
-//                    'url'=>$path,
-//                ]);
-//                $picture->save();
-//            }
             \Session::flash('success','保存成功');
             return redirect()->route('articles.show',[$article->user_id,$article->id])->with(['user'=>$user]);
         }else{
@@ -121,10 +105,15 @@ class ArticlesController extends Controller
      */
     public function show($user_id,$id)
     {
+
         $user = User::findOrFail($user_id);
         $article = Article::findOrFail($id);
         $article->view_count=$article->view_count+1;
         $article->save();
+        Javascript::put([
+            'comments'=>$article->comments
+
+        ]);
         return view('articles.show')->with(['article'=>$article,'user'=>$user]);
     }
 
@@ -205,20 +194,20 @@ class ArticlesController extends Controller
         return response()->json(['unsupportCount'=>$article->reject_count]);
     }
 
-    public function category($user_id,$category_id){
-        $category = Category::findOrFail($category_id);
-        $articles = $category->articles()->paginate(5);
-        $user = User::findOrFail($user_id);
-
-        return view('categories.show')->with(['articles'=>$articles,'user'=>$user,'category'=>$category]);
-    }
-    public function child_category($user_id,$child_category_id){
-        $child_category = ChildCategory::findOrFail($child_category_id);
-        $articles = ChildCategory::findOrFail($child_category_id)->articles()->paginate(5);
-        $user = User::findOrFail($user_id);
-
-        return view('child_categories.show')->with(['articles'=>$articles,'user'=>$user,'child_category'=>$child_category]);
-    }
+//    public function category($user_id,$category_id){
+//        $category = Category::findOrFail($category_id);
+//        $articles = $category->articles()->paginate(5);
+//        $user = User::findOrFail($user_id);
+//
+//        return view('categories.show')->with(['articles'=>$articles,'user'=>$user,'category'=>$category]);
+//    }
+//    public function child_category($user_id,$child_category_id){
+//        $child_category = ChildCategory::findOrFail($child_category_id);
+//        $articles = ChildCategory::findOrFail($child_category_id)->articles()->paginate(5);
+//        $user = User::findOrFail($user_id);
+//
+//        return view('child_categories.show')->with(['articles'=>$articles,'user'=>$user,'child_category'=>$child_category]);
+//    }
 
     public function search(Request $request,$user_id)
     {
