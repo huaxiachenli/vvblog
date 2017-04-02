@@ -10,7 +10,6 @@
                 </div>
                 <div class="card-block">
                     {{ Form::open(['url'=>url()->full()]) }}
-						{{ csrf_field() }}
                     <fieldset class="form-group">
                         {{ Form::label('email','邮箱') }}
                         {{ Form::email('email',null,['class'=>'form-control']) }}
