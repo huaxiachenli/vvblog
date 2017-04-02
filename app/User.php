@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','logo'
     ];
     public function profile(){
         return $this->hasOne(Profile::class);
@@ -51,7 +51,7 @@ class User extends Authenticatable
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class,'article_tag')->withTimestamps();
+        return $this->belongsToMany(Tag::class,'article_tag')->withTimestamps()->distinct();
     }
 
     /**

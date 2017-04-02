@@ -4,9 +4,19 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Image;
 
 class UsersController extends Controller
 {
+    /**
+     * UsersController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth',['only'=>['edit','update','store','dashboard']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -72,6 +82,23 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user = User::findOrFail($id);
+        if ($request->hasFile('avatar')){
+            $filename = $request->file('avatar')->getClientOriginalName();
+
+            $path = $request->file('avatar')->move('avatar/',$filename)->getPathname();
+             Image::make(public_path('avatar/'.$filename))->resize(200,200)->save(public_path('smallavatar/'.$filename));
+
+        }else{
+            $path=null;
+        }
+        $user->update([
+            'name'=>$request->input('name'),
+            'email'=>$request->input('email'),
+            'logo'=>$path
+        ]);
+        \Session::flash('success','信息修改成功！');
+        return redirect()->route('dashboard',Auth::user()->id);
     }
 
     /**

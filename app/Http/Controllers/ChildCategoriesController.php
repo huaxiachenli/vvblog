@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Auth;
 class ChildCategoriesController extends Controller
 {
     /**
+     * ChildCategoriesController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth',['only'=>['store','edit','update']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

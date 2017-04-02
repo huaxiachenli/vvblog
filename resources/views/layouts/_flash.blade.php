@@ -1,5 +1,5 @@
 @if(\Session::has('success'))
-    <div class="container">
+    <div class="container" style="margin-top: 5px">
         <div class="alert alert-success alert-dismissible fade in" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -8,12 +8,12 @@
         </div>
     </div>
 @elseif(\Session::has('danger'))
-    <div class="container">
+    <div class="container" style="margin-top: 5px">
         <div class="alert alert-danger alert-dismissible fade in" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <{{ Session::get('danger') }}
+            {{ Session::get('danger') }}
         </div>
     </div>
 @endif

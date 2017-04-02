@@ -168,6 +168,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
 
         /*
@@ -239,6 +240,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Javascript'=>\Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

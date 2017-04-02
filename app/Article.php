@@ -8,7 +8,7 @@ class Article extends Model
 {
     //
     protected $fillable = [
-        'title', 'content', 'user_id','child_category_id','category_id','intro'
+        'title', 'content', 'user_id','child_category_id','category_id','intro','logo'
     ];
 
     public function pictures()
@@ -47,11 +47,13 @@ class Article extends Model
     public function getTagListAttribute(){
         return $this->tags->pluck('id')->all();
     }
-    public function getContentAttribute($value)
+
+    public function getParseContentAttribute()
     {
         $parse = new GithubMarkdown();
-        return $parse->parse($value);
+        return $parse->parse( $this->content );
     }
+
 
 
 

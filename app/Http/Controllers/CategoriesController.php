@@ -14,7 +14,7 @@ class CategoriesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['only'=>['store','edit','update']]);
     }
 
     /**
@@ -124,18 +124,18 @@ class CategoriesController extends Controller
         Category::findOrFail($id)->delete();
         return response()->json(['status'=>0]);
     }
-    static public $treeList = array();
-
-    static public function tree(&$data,$pid = 0,$count = 1) {
-        foreach ($data as $key => $value){
-            if($value['parent_id']==$pid){
-                $value['Count'] = $count;
-                self::$treeList []=$value;
-                unset($data[$key]);
-                self::tree($data,$value['Id'],$count+1);
-            }
-        }
-        return self::$treeList ;
-    }
+//    static public $treeList = array();
+//
+//    static public function tree(&$data,$pid = 0,$count = 1) {
+//        foreach ($data as $key => $value){
+//            if($value['parent_id']==$pid){
+//                $value['Count'] = $count;
+//                self::$treeList []=$value;
+//                unset($data[$key]);
+//                self::tree($data,$value['Id'],$count+1);
+//            }
+//        }
+//        return self::$treeList ;
+//    }
 
 }

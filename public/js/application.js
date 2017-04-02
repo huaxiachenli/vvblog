@@ -9,18 +9,46 @@ $.ajaxSetup({
 
 
 function deleteCate(currentNode) {
+    console.log(currentNode);
     if(confirm('确认删除菜单吗？')){
+        var categoryId = currentNode.parent().data('category-id');
         $.ajax({
            type:'delete',
-            url:'/users/'+$('#user-card').data('user-id')+'/child_categories',
-            data:{_taken:$('meta[name="csrf-token"]').attr('content')},
+            url:'/users/'+$('#user-card').data('user-id')+'/categories/'+categoryId,
+            data:{_taken:$('meta[name="csrf-token"]').attr('content'),_method:'delete'},
             dataType:'json',
             success:function (data) {
                 currentNode.parent().remove();
+                $('#authorNav>li[data-category-id="'+categoryId+'"]').fadeOut();
             }
         });
     }
 }
+
+
+// function addProfession(currentNode) {
+//     if($('#addProfession').find('input').val()==''){
+//         $('#addProfession').find('input').focus();
+//
+//         $('#addProfession').find('span').text('请添加专业名称').removeAttr('style');
+//         $('#addProfession').find('span').delay(2000).text('');
+//     }else{
+//         $.ajax({
+//             type:'post',
+//             url:'/professions',
+//             data:{name:$('#addProfession').find('input').val()},
+//             success:function (data) {
+//                 $('#professionList').append(
+//                     '<li class="list-group-item" data-profession-id="'+data.profession.id+'">'+
+//                     data.profession.name+
+//                     ' <i class="fa fa-times removeProfession" aria-hidden="true"></i>'+
+//                     '</li>');
+//                 $('#addProfession').find('input').val('');
+//
+//             }
+//         })
+//     }
+// }
 
 function addChildCate(currentNode) {
     if( $(currentNode).parent().find('input').val()=='' ){
@@ -63,18 +91,25 @@ $(document).ready(function(){
     $('#addProfession').find('button').click(function () {
 
         var currentNode = $(this);
-       $.ajax({
-           type:'post',
-           url:'/professions',
-           data:{name:$('#addProfession').find('input').val()},
-           success:function (data) {
-            $('#professionList').append(
-                '<li class="list-group-item" data-profession-id="'+data.profession.id+'">'+
-                   data.profession.name+
-                   ' <i class="fa fa-times removeProfession" aria-hidden="true"></i>'+
-                 '</li>');
-           }
-       })
+        if($('#addProfession').find('input').val()==''){
+            $('#addProfession').find('span').text('请添加专业名称');
+            $('#addProfession').find('span').delay(2000).hide(0);
+        }else{
+            $.ajax({
+                type:'post',
+                url:'/professions',
+                data:{name:$('#addProfession').find('input').val()},
+                success:function (data) {
+                    $('#professionList').append(
+                        '<li class="list-group-item" data-profession-id="'+data.profession.id+'">'+
+                        data.profession.name+
+                        ' <i class="fa fa-times removeProfession" aria-hidden="true"></i>'+
+                        '</li>');
+                    $('#addProfession').find('input').val('');
+                    $('#professionTag').prepend('<span class="tag tag-pill tag-default" data-profession-id="'+data.profession.id+'">'+data.profession.name+'</span>');
+                }
+            })
+        }
 
     });
 
@@ -101,9 +136,11 @@ $(document).ready(function(){
             url:'/professions/'+professionId,
             success:function (data) {
                 currentNode.parent().fadeOut();
+                $('#professionTag>span[data-profession-id="'+professionId+'"]').fadeOut();
+
             }
         });
-    })
+    });
 
     $('#add-category').click(function () {
         if($(this).prev().find('input').val()==''){
@@ -133,6 +170,11 @@ $(document).ready(function(){
                         '</li>'
                     );
                     current_cate.prev().find('input').val('');
+                    $('#authorNav').append('<li class="nav-item dropdown" data-category-id="'+data.id+'"><a href="#" class="nav-link dropdown-toggle" id='+data.name+' data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'+data.name+'</a>' +
+                        '<div class="dropdown-menu" aria-labelledby="'+data.name+'">'+
+
+                        '</div></li>');
+
                 }
             });
 
@@ -167,28 +209,33 @@ $(document).ready(function(){
     // });
 
     $('#commentBtn').click(function(){
-        $.ajax({
-           type:'post',
-            url:'/comments',
-            dataType:'json',
-            data:{article_id:$('#article').data('article-id'),content:$('#markdown').val(),parent_id:0},
-            success:function(data){
-                $('#commentList').append(
-                    '<div class="meida">'+
+        if($('#markdown').val()==''){
+            $(this).parent().before('<p class="text-danger">评论内容不能为空！</p>');
+            $('#markdown').focus();
+        }else{
+            $.ajax({
+                type:'post',
+                url:'/comments',
+                dataType:'json',
+                data:{article_id:$('#article').data('article-id'),content:$('#markdown').val(),parent_id:0},
+                success:function(data){
+                    $('#commentList').append(
+                        '<div class="meida">'+
                         '<a href="" class="media-left">'+
-                            '<img src="'+$('#imgUrl').attr('src')+'" alt="" width="80" height="80">'+
+                        '<img src="'+$('#imgUrl').attr('src')+'" alt="" width="80" height="80">'+
                         '</a>'+
                         '<div class="media-body" data-comment-id="'+data.commentId+'">'+
-                            '<h6 class="media-heading">'+$('#userName').text()+'<small>'+ data.createdAt+' #'+ data.floor +'</small>'+'</h6>'+
-                                data.content+
-                            '<div class="text-xs-right">'+
-                                '<button class="btn btn-outline-info reply">'+'回复'+'</button>'+
-                            '</div>'+
+                        '<h6 class="media-heading">'+$('#userName').text()+'<small>'+ data.createdAt+' #'+ data.floor +'</small>'+'</h6>'+
+                        data.content+
+                        '<div class="text-xs-right">'+
+                        '<button class="btn btn-outline-info reply">'+'回复'+'</button>'+
                         '</div>'+
-                    '</div>'+'<hr>');
-                $('#markdown').val('');
-            }
-        });
+                        '</div>'+
+                        '</div>'+'<hr>');
+                    $('#markdown').val('');
+                }
+            });
+        }
     });
     //启动模态框
     $('.reply').click(function () {

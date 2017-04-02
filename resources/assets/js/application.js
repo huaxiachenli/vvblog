@@ -67,19 +67,24 @@ $(document).ready(function(){
     $('#addProfession').find('button').click(function () {
 
         var currentNode = $(this);
-       $.ajax({
-           type:'post',
-           url:'/professions',
-           data:{name:$('#addProfession').find('input').val()},
-           success:function (data) {
-            $('#professionList').append(
-                '<li class="list-group-item" data-profession-id="'+data.profession.id+'">'+
-                   data.profession.name+
-                   ' <i class="fa fa-times removeProfession" aria-hidden="true"></i>'+
-                 '</li>');
-               $('#addProfession').find('input').val('');
-           }
-       })
+        if($('#addProfession').find('input').val()==''){
+            $('#addProfession').append('<span class="text-danger">请添加专业名称</span>');
+        }else{
+            $.ajax({
+                type:'post',
+                url:'/professions',
+                data:{name:$('#addProfession').find('input').val()},
+                success:function (data) {
+                    $('#professionList').append(
+                        '<li class="list-group-item" data-profession-id="'+data.profession.id+'">'+
+                        data.profession.name+
+                        ' <i class="fa fa-times removeProfession" aria-hidden="true"></i>'+
+                        '</li>');
+                    $('#addProfession').find('input').val('');
+                }
+            })
+        }
+
 
     });
 

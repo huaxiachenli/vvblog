@@ -5,6 +5,13 @@
 #category-conf i{
     cursor: pointer;
 }
+.tag-link:hover{
+    text-decoration: none;
+
+}
+.tag-link label{
+    cursor: pointer;
+}
 
 #logo {
     text-align: center; }
@@ -31,7 +38,9 @@ nav{
     cursor: pointer;
 }
 
-
+#article h2{
+    text-align: center;
+}
 
 #article > p {
     border: 1px dashed rgba(0, 0, 0, 0.1);
@@ -82,7 +91,10 @@ nav form {
 #article h6 tt, #article h6 code {
     font-size: inherit; }
 #article h3 {
-    font-size: 18px; }
+    font-size: 18px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+}
 #article h4 {
     font-size: 16px; }
 #article h5 {
@@ -140,6 +152,9 @@ nav form {
     margin-top: 0; }
 #article blockquote > :last-child {
     margin-bottom: 0; }
+#article table{
+    text-align: center;
+}
 #article table {
     padding: 0;
     border-collapse: collapse; }

@@ -1,5 +1,5 @@
 <header class="container-fluid bg-info" id="logo">
-        <img src="{{ url($user->logo) }}" alt="" width="120px" height="120px" class="rounded-circle">
+        <img src="{{ asset('small'.$user->logo) }}" alt="" width="120px" height="120px" class="rounded-circle">
     <p>
         @if($professions = $user->professions)
             @foreach($professions as $profession)

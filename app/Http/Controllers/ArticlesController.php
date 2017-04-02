@@ -11,6 +11,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Javascript;
+use DB;
 
 class ArticlesController extends Controller
 {
@@ -45,10 +46,16 @@ class ArticlesController extends Controller
     public function create($user_id)
     {
         //
-        $user = User::findOrFail($user_id);
-        $tags = \App\Tag::pluck('name', 'id');
-        $categories = $user->categories;
-        return view('articles.create')->with(['user'=>$user,'categories'=>$categories,'tags'=>$tags]);
+        if(Auth::user()->child_categories->isEmpty()){
+            \Session::flash('danger','请先添加菜单项');
+            return redirect()->route('dashboard',Auth::user()->id);
+        }else{
+            $user = User::findOrFail($user_id);
+            $tags = \App\Tag::pluck('name', 'id');
+            $categories = $user->categories;
+            return view('articles.create')->with(['user'=>$user,'categories'=>$categories,'tags'=>$tags]);
+        }
+
     }
 
     /**
@@ -61,17 +68,22 @@ class ArticlesController extends Controller
     public function store(Request $request,$user_id)
     {
         //
-
+        $this->validate($request,[
+            'title' => 'required|string',
+            'content' => 'required',
+            'child_category_id'=>'integer|required',
+            'intro'=>'required|string',
+            'logo'=>'file|image'
+        ]);
         $user = User::findOrFail($user_id);
         $child_category = ChildCategory::findOrFail($request->input('child_category_id'));
         if ($request->hasFile('logo')){
             $filename = $request->file('logo')->getClientOriginalName();
-            $path = $request->file('logo')->move('uploads/logos/',$filename);
+            $path = $request->file('logo')->move('uploads/logos/',$filename)->getPathname();
 
         }else{
             $path=null;
         }
-
         $article = new Article();
 
         $article->fill([
@@ -83,6 +95,7 @@ class ArticlesController extends Controller
             'intro'=>$request->input('intro'),
             'logo'=>$path
         ]);
+
         if ($article->save()){
 
             foreach ($request->tag as $tag){
@@ -126,9 +139,10 @@ class ArticlesController extends Controller
     public function edit($user_id,$id)
     {
         $user = User::findOrFail($user_id);
+
         //
         $article = Article::find($id);
-        $tags = \App\Tag::pluck('name');
+        $tags = $user->tags()->pluck('name');
 
         return view('articles.edit')->with(['article'=>$article,'user'=>$user,'tags'=>$tags]);
     }
@@ -144,7 +158,6 @@ class ArticlesController extends Controller
     {
 
         //
-//        $user = User::findOrFail($user_id);
         $child_category = ChildCategory::findOrFail($request->input('child_category_id'));
         $article = Article::find($id);
         $article->update([
@@ -164,7 +177,7 @@ class ArticlesController extends Controller
         }
 
         \Session::flash('success','保存成功');
-        return redirect()->route('articles.show',[Auth::user()->id,$id])->with(['user'=>$user,'article'=>$article]);
+        return redirect()->route('articles.show',[Auth::user()->id,$id])->with(['user'=>Auth::user(),'article'=>$article]);
     }
 
     /**

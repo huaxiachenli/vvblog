@@ -9,7 +9,7 @@
                     <h6 class="text-xs-center">登录</h6>
                 </div>
                 <div class="card-block">
-                    {{ Form::open(['url'=>'/login']) }}
+                    {{ Form::open(['url'=>url()->full()]) }}
                     <fieldset class="form-group">
                         {{ Form::label('email','邮箱') }}
                         {{ Form::email('email',null,['class'=>'form-control']) }}

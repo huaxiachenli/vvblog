@@ -19,7 +19,7 @@
                        {{ $article->title }}
                    </h2>
                    <p class="text-xs-center">
-                       <span>发布时间:{{ $user->created_at }}</span> <span>浏览量:{{ $article->view_count }}</span> <span>作者:{{$article->user->name}}</span>
+                       <span>发布时间:{{ $article->created_at->toDateString() }}</span> <span>浏览量:{{ $article->view_count }}</span> <span>作者:{{$article->user->name}}</span>
                        <span>标签：
                             @foreach($article->tags as $tag)
                                 <i class="tag tag-default">{{ $tag->name }}</i>
@@ -27,7 +27,7 @@
                        </span>
                    </p>
                    <div>
-                       {!! $article->content !!}
+                       {!! $article->parseContent !!}
                    </div>
                </div>
 
@@ -81,7 +81,7 @@
                                <i class="fa fa-heartbeat fa-5x"  aria-hidden="true"></i>
                            </a>
                        @endif
-                       <p class="text-muted">共收到<span id="likeCount">{{ $article->likeables->count() }}</span>个赞</p>
+                       <p class="text-muted">共收到<span id="likeCount">{{ $article->likeables()->count() }}</span>个赞</p>
                        <hr>
                        <div class="btn-group" role="group" aria-label="Third group">
                            <button type="button" id="support" class="btn btn-secondary"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></button>

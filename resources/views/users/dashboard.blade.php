@@ -1,17 +1,20 @@
-@extends('layouts.simple')
+@extends('layouts.app')
 @section('content')
+
     <div class="container">
         <div class="row">
-            <br>
+
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-block">
-                        <img src="{{ asset(Auth::user()->logo) }}" alt="">
+                        <a href="{{ url()->route('articles.index',['user_id'=>Auth::user()->id]) }}">
+                            <img src="{{ asset('small'.Auth::user()->logo) }}" alt="{{ Auth::user()->name }}">
+                        </a>
                         <h3 class="text-xs-center">{{ Auth::user()->name }}</h3>
-                        <p class="text-xs-center">
+                        <p class="text-xs-center " id="professionTag">
                             @if($professions = Auth::user()->professions)
                                 @foreach($professions as $profession)
-                                    <span class="tag tag-pill tag-default">{{ $profession->name }}</span>
+                                    <span class="tag tag-pill tag-default" data-profession-id="{{ $profession->id }}">{{ $profession->name }}</span>
                                 @endforeach
                             @else
                                 <span class="tag tag-pill tag-default">文字爱好者</span>
@@ -67,12 +70,13 @@
                                 <p>职业技能：php工程师 & ruby工程师 </p>
                                 <p>发表文章总数：{{ Auth::user()->articles->count() }}</p>
                                 <p> 发表评论总数：{{ Auth::user()->comments->count() }}</p>
+                                <p><a href="{{ url()->route('articles.index',Auth::user()->id) }}" class="btn btn-outline-info">回到首页</a></p>
 
                             </div>
                             <div class="tab-pane" id="profile" role="tabpanel">
                                 <br>
                                 <h3>修改个人信息</h3>
-                                {{ Form::open(['url'=>'#']) }}
+                                {{ Form::open(['route'=>['users.update',Auth::user()->id],'files'=>true,'method'=>'put']) }}
                                 <fieldset class="form-group">
                                     {{ Form::label('name','用户名') }}
                                     {{ Form::text('name',Auth::user()->name,['class'=>'form-control']) }}
@@ -82,8 +86,8 @@
                                     {{ Form::text('email',Auth::user()->email,['class'=>'form-control']) }}
                                 </fieldset>
                                 <fieldset class="form-group">
-                                    {{ Form::label('logo','LOGO') }}
-                                    {{ Form::file('logo',['class'=>'form-control-file']) }}
+                                    {{ Form::label('avatar','Avatar') }}
+                                    {{ Form::file('avatar',['class'=>'form-control-file']) }}
                                 </fieldset>
                                 <fieldset class="form-group">
                                     {{ Form::submit('更新',['class'=>'btn btn-primary btn-block']) }}
@@ -113,7 +117,7 @@
                                     @foreach($user->categories as $category)
                                         <hr>
                                        <li data-category-id="{{ $category->id }}">
-                                           {{ $category->name }} <span onclick="deleteCate()"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                           {{ $category->name }} <span onclick="deleteCate($(this))"><i class="fa fa-times" aria-hidden="true"></i></span>
                                            <fieldset class="form-inline">
                                                <div class="form-group">
                                                    <div class="input-group">
@@ -203,6 +207,7 @@
                                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                                 </button>
                                             </div>
+                                            <span class="text-danger"></span>
                                         </field>
                                     </div>
 

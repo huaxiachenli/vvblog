@@ -17,9 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix'=>'users/{user_id}'],function (){
+    Route::get('tag/{tag}','TagsController@show')->name('tag');
     Route::get('dashboard','UsersController@dashboard')->name('dashboard');
     Route::get('search','ArticlesController@search')->name('search');
     Route::resource('articles','ArticlesController');
