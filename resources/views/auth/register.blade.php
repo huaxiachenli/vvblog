@@ -8,7 +8,7 @@
                 <h4 class="card-header text-xs-center">注册</h4>
                 <div class="card-block">
                     {{ Form::open(['url'=>'/register']) }}
-						{!! csrf_field() !!}
+						{{ csrf_field() }}
                     <fieldset class="form-group">
                         {{ Form::label('name','用户名') }}
                         {{ Form::text('name',null,['class'=>'form-control','required'=>'required']) }}
