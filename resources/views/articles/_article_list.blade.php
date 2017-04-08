@@ -20,10 +20,10 @@
             <i class="fa fa-calendar" aria-hidden="true"></i>
             {{ $article->created_at }}
             <i class="fa fa-th-list" aria-hidden="true"></i>
-            <a href="{{ url()->route('categories.show',[$user->id,$article->category->id]) }}">{{ $article->category->name }}</a> • <a href="{{ url()->route('child_categories.show',[$user->id,$article->ChildCategory->id]) }}">{{ $article->ChildCategory->name }}</a>
+            <a href="{{ url()->route('categories.show',[$article->user_id,$article->category->id]) }}">{{ $article->category->name }}</a> • <a href="{{ url()->route('child_categories.show',[$article->user_id,$article->ChildCategory->id]) }}">{{ $article->ChildCategory->name }}</a>
             <i class="fa fa-tags" aria-hidden="true"></i>
             @foreach($article->tags as $tag)
-                <a href="{{ url()->route('tag',[$user->id,$tag->name]) }}" class="tag-link">
+                <a href="{{ url()->route('tag',[$article->user_id,$tag->name]) }}" class="tag-link">
                     <label for="label" class="tag {{ array_rand(['tag-default'=>0,'tag-primary'=>1,'tag-info'=>2,'tag-success'=>3,'tag-danger'=>4]) }}">{{ $tag->name }}</label>
                 </a>
             @endforeach

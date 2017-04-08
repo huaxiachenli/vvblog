@@ -4,8 +4,9 @@
  * include Vue and Vue Resource. This gives a great starting point for
  * building robust, powerful web applications using Vue and Laravel.
  */
-
+Window.Tether = require('tether');
 require('./bootstrap');
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -14,7 +15,9 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
-
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data:{
+        message:'hello world'
+    }
 });

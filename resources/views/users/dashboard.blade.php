@@ -3,7 +3,9 @@
 
     <div class="container">
         <div class="row">
+        <div id="app">
 
+        </div>
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-block">
@@ -113,6 +115,7 @@
 
                                 <p>
                                 <ul id="category_list">
+
 
                                     @foreach($user->categories as $category)
                                         <hr>

@@ -16,6 +16,7 @@
     {{--<link rel="stylesheet" href="/css/select2.css">--}}
         {{--<link rel="stylesheet" href="/css/bootstrap.min.css">--}}
         {{--<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">--}}
+    <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/css/application.css">
         @stack('styles')
     <!-- Scripts -->
@@ -35,19 +36,22 @@
 
     <!-- Scripts -->
     {{--<script src="/js/jquery.min.js"></script>--}}
-    {{--<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>--}}
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
     {{--<script src="/js/application.js"></script>--}}
-
+    <script src="//cdn.bootcss.com/tether/1.4.0/js/tether.min.js"></script>
     {{--<script src="/js/bootstrap.min.js"></script>--}}
-    {{--<script src="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>--}}
+    <script src="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
 
 
 
-    <script src="/js/app.js"></script>
-    <script src="/js/select2.js"></script>
-    <script src="/js/vue.js"></script>
+    {{--<script src="/js/app.js"></script>--}}
+    <script src="//cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
+    <script src="//cdn.bootcss.com/vue/2.2.6/vue.min.js"></script>
+    {{--<script src="/js/select2.js"></script>--}}
+    {{--<script src="/js/vue.js"></script>--}}
     <script src="/js/application.js"></script>
     @stack('scripts')
     @include('layouts.var')
+    <p id="test">@{{ message }}</p>
 </body>
 </html>

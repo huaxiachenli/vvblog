@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::get('/','HomeController@index');
 Auth::routes();
 
 
@@ -25,7 +25,7 @@ Route::group(['prefix'=>'users/{user_id}'],function (){
     Route::get('dashboard','UsersController@dashboard')->name('dashboard');
     Route::get('search','ArticlesController@search')->name('search');
     Route::resource('articles','ArticlesController');
-    Route::resource('categories','CategoriesController',['only'=>['store','destory','show']]);
+    Route::resource('categories','CategoriesController',['only'=>['store','destroy','show']]);
     Route::resource('child_categories','ChildCategoriesController',['only'=>['store','destory','show']]);
     Route::resource('profiles','ProfilesController',['only'=>['store']]);
 

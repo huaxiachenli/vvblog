@@ -6,14 +6,19 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
+var test =new Vue({
+    el:'test',
+    data:{
+        message:'hello worl',
+    }
+});
 
 function deleteCate(currentNode) {
-    console.log(currentNode);
-    if(confirm('确认删除菜单吗？')){
+
         var categoryId = currentNode.parent().data('category-id');
+    if(comfirm("确认要删除吗？")){
         $.ajax({
-           type:'delete',
+            type:'delete',
             url:'/users/'+$('#user-card').data('user-id')+'/categories/'+categoryId,
             data:{_taken:$('meta[name="csrf-token"]').attr('content'),_method:'delete'},
             dataType:'json',

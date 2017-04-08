@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+//        return view('home');
+        $articles = Article::paginate(5);
+        $users = User::paginate(20);
+        return view('home.index')->with(['articles'=>$articles,'users'=>$users]);
     }
 }

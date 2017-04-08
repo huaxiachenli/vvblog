@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\ArticleTag;
 use App\ChildCategory;
-use App\Category;
 use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Javascript;
-use DB;
 
 class ArticlesController extends Controller
 {

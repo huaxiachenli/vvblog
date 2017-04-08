@@ -6,14 +6,16 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
-var vue = new Vue({
-
+var app = new Vue({
+    el: '#category_list',
+    data: {
+        message: 'Hello Vue!'
+    }
 });
 
 
 function deleteCate(currentNode) {
-    if(confirm('确认删除菜单吗？')){
+
         $.ajax({
            type:'delete',
             url:'/users/'+$('#user-card').data('user-id')+'/child_categories',
@@ -23,7 +25,6 @@ function deleteCate(currentNode) {
                 currentNode.parent().remove();
             }
         });
-    }
 }
 
 function addChildCate(currentNode) {
