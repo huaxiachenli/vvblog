@@ -8,8 +8,7 @@ $.ajaxSetup({
 });
 
 function deleteCate(currentNode) {
-
-        var categoryId = currentNode.parent().data('category-id');
+    var categoryId = currentNode.parent().data('category-id');
     if(confirm("确认删除吗？")){
         $.ajax({
             type:'delete',
