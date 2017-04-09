@@ -52,6 +52,5 @@
     <script src="/js/application.js"></script>
     @stack('scripts')
     @include('layouts.var')
-    <p id="test">@{{ message }}</p>
 </body>
 </html>

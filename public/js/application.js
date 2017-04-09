@@ -6,17 +6,11 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-var test =new Vue({
-    el:'test',
-    data:{
-        message:'hello worl',
-    }
-});
 
 function deleteCate(currentNode) {
 
         var categoryId = currentNode.parent().data('category-id');
-    if(comfirm("确认要删除吗？")){
+    if(confirm("确认删除吗？")){
         $.ajax({
             type:'delete',
             url:'/users/'+$('#user-card').data('user-id')+'/categories/'+categoryId,

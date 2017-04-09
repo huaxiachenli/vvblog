@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light bg-faded">
     <div class="container">
-        <a class="navbar-brand" href="{{ url()->route('users.index') }}">微播客</a>
+        <a class="navbar-brand" href="{{ url()->route('home') }}">微播客</a>
         <button class="navbar-toggler hidden-lg-up pull-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-toggleable-md" id="navbarResponsive">
 

@@ -14,11 +14,11 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::get('/','HomeController@index');
+Route::get('/','HomeController@index')->name('home');
 Auth::routes();
 
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix'=>'users/{user_id}'],function (){
     Route::get('tag/{tag}','TagsController@show')->name('tag');
