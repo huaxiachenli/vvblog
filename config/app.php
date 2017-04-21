@@ -169,6 +169,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        YuanChao\Editor\EndaEditorServiceProvider::class,
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
 
 
         /*
@@ -242,6 +244,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Javascript'=>\Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class,
     ],
 
 ];

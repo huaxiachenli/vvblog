@@ -13,7 +13,9 @@
         "barryvdh/laravel-ide-helper": "^2.2",
         "laracasts/utilities": "^2.1",
         "cebe/markdown": "^1.1",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "yuanchao/laravel-5-markdown-editor": "dev-master",
+        "jeroennoten/laravel-adminlte": "^1.19"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

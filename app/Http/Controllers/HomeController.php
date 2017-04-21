@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
-use App\User;
 
+
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -24,9 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        return view('home');
-        $articles = Article::paginate(5);
-        $users = User::paginate(20);
-        return view('home.index')->with(['articles'=>$articles,'users'=>$users]);
+        $user= Auth::user();
+
+        return view('home')->with(['user'=>$user]);
     }
 }

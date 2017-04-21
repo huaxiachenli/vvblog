@@ -6,26 +6,6 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-var app = new Vue({
-    el: '#category_list',
-    data: {
-        message: 'Hello Vue!'
-    }
-});
-
-
-function deleteCate(currentNode) {
-
-        $.ajax({
-           type:'delete',
-            url:'/users/'+$('#user-card').data('user-id')+'/child_categories',
-            data:{_taken:$('meta[name="csrf-token"]').attr('content')},
-            dataType:'json',
-            success:function (data) {
-                currentNode.parent().remove();
-            }
-        });
-}
 
 function addChildCate(currentNode) {
     if( $(currentNode).parent().find('input').val()=='' ){
@@ -49,6 +29,7 @@ function addChildCate(currentNode) {
         });
     }
 };
+$()
 
 $(document).ready(function(){
     $('#commentForm textarea').keydown(function(e) {
@@ -64,7 +45,6 @@ $(document).ready(function(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
     $('#addProfession').find('button').click(function () {
 
         var currentNode = $(this);
@@ -73,20 +53,34 @@ $(document).ready(function(){
         }else{
             $.ajax({
                 type:'post',
-                url:'/professions',
+                url:'/users/'+$('#wrap-id').data('user-id')+'/professions',
                 data:{name:$('#addProfession').find('input').val()},
                 success:function (data) {
-                    $('#professionList').append(
-                        '<li class="list-group-item" data-profession-id="'+data.profession.id+'">'+
-                        data.profession.name+
-                        ' <i class="fa fa-times removeProfession" aria-hidden="true"></i>'+
-                        '</li>');
+                    $('#profession-table tbody').append(`
+                    <tr>
+                        <td>New</td>
+                        <td>${ data.profession.name }</td>
+                        <td>
+                            <button class="btn btn-danger" data-profession-id="${data.profession.id}">删除</button>
+                        </td>
+                    </tr>`);
                     $('#addProfession').find('input').val('');
                 }
             })
         }
 
 
+    });
+    //删除职业
+    $('#profession-table').delegate('button','click',function () {
+        var that = $(this);
+       $.ajax({
+           type:'delete',
+           url:'/users/'+$('#wrap-id').data('user-id')+'/professions/'+$('#profession-table button').attr('data-profession-id'),
+           success:function (data) {
+               that.parent().parent().remove();
+           }
+       });
     });
 
     $('.delete-article').click(function () {
@@ -131,7 +125,7 @@ $(document).ready(function(){
                     $('#category_list').append(
                         '<hr>'+
                         '<li data-category-id="'+data.id+'">'+
-                        data.name+'<span onclick="deleteCate()"><i class="fa fa-times" aria-hidden="true"></i></span>'+
+                        data.name+'<span  class="delete-category-btn"><i class="fa fa-times" aria-hidden="true"></i></span>'+
                         '<fieldset class="form-inline">'+
                         '<div class="form-group">'+
                         '<div class="input-group">'+

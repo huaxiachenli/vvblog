@@ -1,14 +1,12 @@
-<div class="card">
-    <h6 class="card-header">
-        <i class="fa fa-heart" aria-hidden="true"></i> 猜你感兴趣
-    </h6>
-    <ul class="list-group list-group-flush">
+@if($article->childCategory->articles->count()>2)
+    <div class="list-group">
+        <a href="" class="list-group-item active">
+            <i class="fa fa-heart" aria-hidden="true"></i> 猜你感兴趣
+        </a>
         @foreach($article->childCategory->articles as $childCategoryArticle)
-            <li class="list-group-item">
-                <a href="{{ url()->route('articles.show',['user_id'=>$user->id,'article_id'=>$article->id]) }}" class="card-link">
-                    {{ $childCategoryArticle->title }}
-                </a>
-            </li>
+          @unless($childCategoryArticle->id==$article->id)
+            <a href="{{ url()->route('users.articles.show',[$childCategoryArticle->user_id,$childCategoryArticle->id]) }}" class="list-group-item">{{ $childCategoryArticle->title }}</a>
+           @endunless
         @endforeach
-    </ul>
-</div>
+    </div>
+@endif

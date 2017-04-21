@@ -1,28 +1,42 @@
-@extends('layouts.app')
-@section('_header')
+@extends('adminlte::master')
+
+@section('adminlte_css')
+    <link rel="stylesheet"
+          href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
+    @stack('css')
+    @yield('css')
+@stop
+@section('body_class', 'layout-top-nav skin-blue')
+@push('scripts')
+<script src="/js/application.js"></script>
+@endpush
+@push('styles')
+<link rel="stylesheet" href="/css/application.css">
+@endpush
+
+@section('body')
     @include('layouts._header')
-    @endsection
-@section('content')
+    @include('layouts._nav')
    <div class="container">
        <div class="row">
            <div class="col-md-12">
-               <nav class="breadcrumb">
-                   <a class="breadcrumb-item" href="{{ url()->route('articles.index',$user->id) }}">{{ $user->name }}</a>
-                   <a class="breadcrumb-item" href="{{ url()->route('categories.show',[$user->id,$article->category->id]) }}">{{ $article->category->name }}</a>
-                   <a href="{{ url()->route('child_categories.show',[$user->id,$article->childCategory->id]) }}" class="breadcrumb-item">{{ $article->childCategory->name }}</a>
-                   <span class="breadcrumb-item">{{ $article->title }}</span>
-               </nav>
+               <ol class="breadcrumb">
+                   <li><a href="{{ url()->route('users.articles.index',$user->id) }}">{{ $user->name }}</a></li>
+                   <li><a href="{{ url()->route('users.categories.show',[$user->id,$article->category->id]) }}">{{ $article->category->name }}</a></li>
+                   <li><a href="{{ url()->route('users.child_categories.show',[$user->id,$article->childCategory->id]) }}">{{ $article->childCategory->name }}</a></li>
+                    <li class="active">{{ $article->title }}</li>
+               </ol>
            </div>
            <article class="col-md-8">
                <div id="article" data-article-id="{{ $article->id }}"  data-user-id="{{ $article->user_id }}">
                    <h2>
                        {{ $article->title }}
                    </h2>
-                   <p class="text-xs-center">
+                   <p class="text-center">
                        <span>发布时间:{{ $article->created_at->toDateString() }}</span> <span>浏览量:{{ $article->view_count }}</span> <span>作者:{{$article->user->name}}</span>
                        <span>标签：
                             @foreach($article->tags as $tag)
-                                <i class="tag tag-default">{{ $tag->name }}</i>
+                                <i class="label label-default">{{ $tag->name }}</i>
                             @endforeach
                        </span>
                    </p>
@@ -59,7 +73,7 @@
                    </div>
                </div>
                @else
-                   <p class="text-xs-center">
+                   <p class="text-center">
                        <a href="/login?redirect_url={{ url()->current() }}" class="btn btn-primary"><i class="fa fa-paper-plane" aria-hidden="true"></i> 登录后评论</a>
                    </p>
 
@@ -67,8 +81,8 @@
 
            </article>
            <aside class="col-md-4">
-               <div class="card text-xs-center" id="favorite">
-                   <div class="card-block">
+               <div class="panel panel-default" id="favorite">
+                   <div class="panel-body text-center">
                        <h4>点赞啦!!</h4>
                        @if(Auth::check())
                            @if($likeable = Auth::user()->likeable($article->id))
@@ -84,13 +98,13 @@
                        <p class="text-muted">共收到<span id="likeCount">{{ $article->likeables()->count() }}</span>个赞</p>
                        <hr>
                        <div class="btn-group" role="group" aria-label="Third group">
-                           <button type="button" id="support" class="btn btn-secondary"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></button>
-                           <button type="button" id='unsupport' class="btn btn-secondary"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></button>
+                           <button type="button" id="support" class="btn btn-default"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></button>
+                           <button type="button" id='unsupport' class="btn btn-default"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></button>
 
                        </div>
                        <p class="text-muted">被支持<span id="supportCount">{{ $article->suport_count }}</span>次•被踩了<span id="unsupportCount">{{ $article->reject_count }}</span>次</p>
                        <hr>
-                       <p>
+                       <p class="text-center">
                            @if(Auth::check())
 
                                @if($collect = Auth::user()->collected($article->id))
@@ -100,7 +114,7 @@
                                    <button class="btn btn-default" data-collect-id='0' id="collect"><i class="fa fa-star-o" aria-hidden="true"></i><span> 收藏</span> </button>
                                 @endif
                             @else
-                               <a href="/login?redirect_url={{ url()->current() }}" class="btn btn-outline-primary">登录后再收藏</a>
+                               <a href="/login?redirect_url={{ url()->current() }}" class="btn btn-primary">登录后再收藏</a>
                             @endif
 
                        </p>
@@ -112,20 +126,18 @@
                    </div>
                </div>
               @include('shares._interest')
-               <div class="card">
-                   <h6 class="card-header">
+               <div class="list-group">
+                   <a href="#" class="list-group-item active">
                        <i class="fa fa-user" aria-hidden="true"></i> 作者其他类似文章
-                   </h6>
-                   <ul class="list-group list-group-flush">
-                       @foreach($article->category->articles as $userArticle)
-                       <li class="list-group-item">
-                           <a href="{{ url()->route('articles.show',['user_id'=>$user->id,'article_id'=>$userArticle->id]) }}" class="card-link">
+                   </a>
+                   @foreach($article->category->articles as $userArticle)
+                       @unless($userArticle==$article)
+                           <a href="{{ url()->route('users.articles.show',[$userArticle->user_id,$userArticle->id]) }}" class="list-group-item">
                                {{ $userArticle->title }}
+                               <span class=" pull-right"><i class="fa fa-eye" aria-hidden="true"></i> {{ $userArticle->view_count }} </span>
                            </a>
-                           <span class="tag tag-info float-xs-right"><i class="fa fa-eye" aria-hidden="true"></i> {{ $userArticle->view_count }} </span>
-                       </li>
-                       @endforeach
-                   </ul>
+                       @endunless
+                   @endforeach
                </div>
            </aside>
        </div>

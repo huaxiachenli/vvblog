@@ -1,3 +1,5 @@
+{{--// 引入编辑器代码--}}
+@include('editor::head')
 <fieldset class="form-group">
     {{ Form::label('title','标题') }}
     {{ Form::text('title',null,['class'=>'form-control','reuquired'=>'required']) }}
@@ -10,8 +12,19 @@
 
 <fieldset class="form-group">
     {{ Form::label('content','内容') }}
-    {{ Form::textarea('content',null,["data-provide"=>"markdown","data-iconlibrary"=>"fa",'id'=>'markdown','required'=>'required','placeholder'=>'支持markdown语法']) }}
+    {{--{{ Form::textarea('content',null,["data-provide"=>"markdown","data-iconlibrary"=>"fa",'id'=>'markdown','required'=>'required','placeholder'=>'支持markdown语法']) }}--}}
+    {{--// 编辑器一定要被一个 class 为 editor 的容器包住--}}
+    <div class="editor">
+        {{--// 创建一个 textarea 而已，具体的看手册，主要在于它的 id 为 myEditor--}}
+        {!! Form::textarea('content', '', ['class' => 'form-control','id'=>'myEditor']) !!}
+
+        {{--// 上面的 Form::textarea ，在laravel 5 中被提了出去，如果你没安装的话，直接这样用--}}
+
+        {{--// 主要还是在容器的 ID 为 myEditor 就行--}}
+
+    </div>
 </fieldset>
+
 
 
 <fieldset class="form-group">
