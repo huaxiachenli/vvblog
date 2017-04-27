@@ -1,55 +1,53 @@
 
+
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
 //删除一级菜单
-$('#category_list').delegate('.delete-category-btn','click',function () {
-    var that= $(this);
+$('#category_list').delegate('.delete-category-btn', 'click', function () {
+    var that = $(this);
 
     $.ajax({
         type: 'delete',
-        url: '/admin/categories/'+that.parent().attr('data-category-id'),
+        url: '/admin/categories/' + that.parent().attr('data-category-id'),
         dataType: 'json',
-        success: function(data) {
+        success: function success(data) {
             that.parent().remove();
         }
     });
 });
 
-$('#category_list').delegate('.child-category-btn','click',function () {
-   var that = $(this);
-    if(that.prev().find('input').val()==''){
+$('#category_list').delegate('.child-category-btn', 'click', function () {
+    var that = $(this);
+    if (that.prev().find('input').val() == '') {
         that.prev().find('input').focus();
         that.next().text('子菜单名称不能为空');
-    }else{
+    } else {
         $.ajax({
-            type:'post',
-            url:'/admin/child_categories',
-            data:{category_id:that.parent().parent().attr('data-category-id'),name:that.prev().find('input').val()},
-            dataType:'json',
-            success:function (data) {
-                that.parent().next().append(`<li data-child-category-id="${data.child_category.id}">
-                    ${data.child_category.name} <span class="delete-child-category-btn"><i class="fa fa-times" aria-hidden="true"></i></span>
-                    </li>`);
+            type: 'post',
+            url: '/admin/child_categories',
+            data: { category_id: that.parent().parent().attr('data-category-id'), name: that.prev().find('input').val() },
+            dataType: 'json',
+            success: function success(data) {
+                that.parent().next().append('<li data-child-category-id="' + data.child_category.id + '">\n                    ' + data.child_category.name + ' \n                    <span class="delete-child-category-btn">\n                        <i class="fa fa-times" aria-hidden="true"></i>\n                    </span>\n                  </li>');
                 that.prev().find('input').val('');
             }
-        })
+        });
     }
-
 });
 
-$('#category_list').delegate('.delete-child-category-btn','click',function(){
-   var that = $(this);
+$('#category_list').delegate('.delete-child-category-btn', 'click', function () {
+    var that = $(this);
     $.ajax({
-        type:'delete',
-        url:'/admin/child_categories/'+that.parent().attr('data-child-category-id'),
-        dataType:'json',
-        success:function (data) {
+        type: 'delete',
+        url: '/admin/child_categories/' + that.parent().attr('data-child-category-id'),
+        dataType: 'json',
+        success: function success(data) {
             that.parent().remove();
         }
-    })
+    });
 });
 
 $(document).ready(function () {
@@ -86,7 +84,7 @@ $(document).ready(function () {
         var that = $(this);
         $.ajax({
             type: 'delete',
-            url:'/admin/professions/' + that.attr('data-profession-id'),
+            url: '/admin/professions/' + that.attr('data-profession-id'),
             success: function success(data) {
                 that.parent().parent().remove();
             }
@@ -136,33 +134,9 @@ $(document).ready(function () {
                     current_cate.prev().find('input').val('');
                 }
             });
-        };
+        }
+        ;
     });
-
-    // $('.child-cate-btn').click(function () {
-    //    if( $(this).parent().find('input').val()=='' ){
-    //        $(this).parent().find('input').focus();
-    //        $(this).parent().append('<span class="text-danger">子菜单不能能空</span>');
-    //    }else{
-    //        var current_node = $(this);
-    //         $.ajax({
-    //            type:'post',
-    //            url:'/users/'+$('#user-card').data('user-id')+'/categories',
-    //            data:{parent_id:$(this).parents('li').attr('data-category-id'),name:$(this).parent().find('input').val()},
-    //             dataType:'json',
-    //             success:function (data) {
-    //                 console.log(current_node);
-    //                 current_node.parent().next().append(
-    //                     '<li class="child-cate-list" data-child-category-id="'+data.id+'">'+
-    //                         data.name+''+
-    //                         '<span><i class="fa fa-times" aria-hidden="true"></i></span>'+
-    //                     '</li>'
-    //                 );
-    //                 current_node.parent().find('input').val('');
-    //             }
-    //         });
-    //    }
-    // });
 
     $('#commentBtn').click(function () {
         $.ajax({
@@ -188,9 +162,13 @@ $(document).ready(function () {
             type: 'post',
             url: '/comments',
             dataType: 'json',
-            data: { article_id: $('#article').data('article-id'), content: content, parent_id: $('#myModal').attr('data-parent-id') },
+            data: {
+                article_id: $('#article').data('article-id'),
+                content: content,
+                parent_id: $('#myModal').attr('data-parent-id')
+            },
             success: function success(data) {
-                $('#commentList').append('<div class="meida">' + '<a href="" class="media-left">' + '<img src="' + $('#imgUrl').attr('src') + '" alt="" width="80" height="80">' + '</a>' + '<div class="media-body" data-comment-id="' + data.commentId + '">' + '<h6 class="media-heading">' + $('#userName').text() + '<small>' + data.createdAt + '</small>' + '</h6>' + data.content + '<div class="text-xs-right">' + '<button class="btn btn-outline-info reply">' + '回复' + '</button>' + '</div>' + '</div>' + '</div>' + '<hr>');
+                $('#commentList').append('<div class="meida">\n            <a href="" class="media-left">\n                <img src="' + $('#imgUrl').attr('src') + '" width="80" height="80">\n            </a>\n        <div class="media-body" data-comment-id="' + data.commentId + '">\n            <h6 class="media-heading">' + $('#userName').text() + ' <small>' + data.createAt + '</small></h6>\n            ' + data.content + '\n    \n            <div class="text-xs-right">\n              <button class="btn btn-outline-info reply">\u56DE\u590D</button>\n            </div>\n        </div>\n    </div>');
                 $('#myModal').modal('hide').find('textarea').val('');
             }
         });
@@ -234,7 +212,11 @@ $(document).ready(function () {
                 type: 'delete',
                 url: '/likeables/' + $('#likeable').attr('data-likeable-id'),
                 dataType: 'json',
-                data: { likeable_id: $('#likeable').attr('data-likeable-id'), article_id: $('#article').data('article-id'), _method: 'delete' },
+                data: {
+                    likeable_id: $('#likeable').attr('data-likeable-id'),
+                    article_id: $('#article').data('article-id'),
+                    _method: 'delete'
+                },
                 success: function success(data) {
                     $('#likeable').toggleClass('fa-heart-o fa-heart').attr('data-likeable-id', 0);
                     $('#likeCount').text(data.likeCount);
@@ -269,5 +251,6 @@ $(document).ready(function () {
         }
     });
 });
+
 
 //# sourceMappingURL=application.js.map
