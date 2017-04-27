@@ -33,7 +33,7 @@
             <div class="container" style="padding-top: 20px">
                 <div class="row" style="border-bottom:1px dashed  #7A8B8B;padding-bottom: 10px">
                     <div class="col-md-6 text-center">
-                        <i class="fa fa-podcast" style="font-size: 20em" aria-hidden="true"></i>
+                        <i class="fa fa-globe" style="font-size: 20em" aria-hidden="true"></i>
                     </div>
                     <div class="col-md-6">
                         <h1 style="margin-top: 1em">个人名片，随时分享</h1>
