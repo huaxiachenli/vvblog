@@ -40,7 +40,7 @@ Route::group(['prefix'=>'articles/{article}'],function(){
 });
 
 
-
+Route::post('article/uploads','admin\ArticlesController@upload');
 Route::resource('users','UsersController');
 
 Route::resource('collects','CollectsController',['only'=>['store','destroy']]);

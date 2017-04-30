@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Article;
 use App\Tag;
+use YuanChao\Editor\EndaEditor;
 
 class ArticlesController extends Controller
 {
@@ -158,4 +159,15 @@ class ArticlesController extends Controller
             return response()->json(['status'=>0]);
         }
     }
+
+    public function upload(){
+
+        // path 为 public 下面目录，比如我的图片上传到 public/uploads 那么这个参数你传uploads 就行了
+
+        $data = EndaEditor::uploadImgFile('path');
+
+        return json_encode($data);
+
+    }
+
 }
