@@ -14,7 +14,6 @@
     <hr>
     {!! Form::open(['route'=>['articles.store',Auth::user()->id],'files'=>true]) !!}
     {{--// 引入编辑器代码--}}
-    @include('editor::head')
     <fieldset class="form-group">
         {{ Form::label('title','标题') }}
         {{ Form::text('title',null,['class'=>'form-control','reuquired'=>'required','placeholder'=>'请输入标题']) }}
@@ -62,11 +61,51 @@
     </fieldset>
     @section('css')
     <link href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/4.10.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/8.4/styles/default.min.css">
+    <style>
+        .editor{
+            width:{{ config('editor.width') }};
+        }
+    </style>
     @endsection
     @section('js')
     <script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
     <script type="text/javascript">
         $('#tag').select2({tags:true});
+    </script>
+    <script src="https://cdn.bootcss.com/highlight.js/8.4/highlight.min.js"></script>
+    <script src="https://cdn.bootcss.com/marked/0.3.2/marked.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/codemirror/4.10.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
+
+    <link rel="stylesheet" href="{{ asset('plugin/editor/css/pygment_trac.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugin/editor/css/editor.css') }}">
+    <script src="https://cdn.bootcss.com/highlight.js/9.10.0/highlight.min.js"></script>
+    <script type="text/javascript" src="{{ asset('plugin/editor/js/modal.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugin/editor/js/MIDI.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugin/editor/js/fileupload.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugin/editor/js/bacheditor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugin/editor/js/bootstrap3-typeahead.js') }}"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(function() {
+            url = "{{ url(config('editor.uploadUrl')) }}";
+
+            @if(config('editor.ajaxTopicSearchUrl',null))
+                    ajaxTopicSearchUrl = "{{ url(config('editor.ajaxTopicSearchUrl')) }}";
+            @else
+                    ajaxTopicSearchUrl = null;
+                    @endif
+
+            var myEditor = new Editor(url,ajaxTopicSearchUrl);
+            myEditor.render('#myEditor');
+        });
     </script>
     @endsection
     {!! Form::close() !!}

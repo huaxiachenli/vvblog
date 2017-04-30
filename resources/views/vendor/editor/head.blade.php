@@ -1,9 +1,9 @@
-<link href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/4.10.0/codemirror.min.css">
 <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/8.4/styles/default.min.css">
 <script src="https://cdn.bootcss.com/highlight.js/8.4/highlight.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="https://cdn.bootcss.com/marked/0.3.2/marked.min.js"></script>
 <script type="text/javascript" src="https://cdn.bootcss.com/codemirror/4.10.0/codemirror.min.js"></script>
 <script type="text/javascript" src="https://cdn.bootcss.com/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
