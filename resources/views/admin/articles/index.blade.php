@@ -5,9 +5,9 @@
 @section('content_header')
 @include('admin.layouts._flash')
 @stop
-@push('scripts')
+@section('js')
 <script src="/js/application.js"></script>
-@endpush
+@endsection
 @section('content')
     <p><a class="btn-success btn btn-lg" href="{{ url('/admin/articles/create') }}">开始写文章</a></p>
     <hr>

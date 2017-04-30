@@ -1,18 +1,34 @@
 @extends('adminlte::master')
 
 @section('adminlte_css')
+
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
-    @stack('css')
     @yield('css')
 @stop
 @section('body_class', 'layout-top-nav skin-blue')
-@push('scripts')
+@section('js')
+    <script src="/js/markdown.js"></script>
+    <script src="/js/to-markdown.min.js"></script>
+    <script src="/js/bootstrap-markdown.js"></script>
+    <script src="/js/bootstrap-markdown.zh.js"></script>
+    <script>
+
+        $('#markdown').markdown({
+            iconlibrary:'fa',
+            language:'zh',
+
+        });
+    </script>
+    <script src="/js/jquery.hotkeys.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 <script src="/js/application.js"></script>
-@endpush
-@push('styles')
+@endsection
+@section('css')
+    <link rel="stylesheet" href="/css/bootstrap-markdown.min.css">
 <link rel="stylesheet" href="/css/application.css">
-@endpush
+@endsection
 
 @section('body')
     @include('layouts._header')
@@ -144,24 +160,10 @@
    </div>
     @include('articles._modalForm');
    @push('scripts')
-   <script src="/js/markdown.js"></script>
-   <script src="/js/to-markdown.min.js"></script>
-   <script src="/js/bootstrap-markdown.js"></script>
-   <script src="/js/bootstrap-markdown.zh.js"></script>
-   <script>
 
-       $('#markdown').markdown({
-           iconlibrary:'fa',
-           language:'zh',
-
-       });
-   </script>
-   <script src="/js/jquery.hotkeys.js"></script>
-   <script src="https://cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
-   <script>hljs.initHighlightingOnLoad();</script>
    @endpush
    @push('styles')
-   <link rel="stylesheet" href="/css/bootstrap-markdown.min.css">
+
 
    @endpush
 

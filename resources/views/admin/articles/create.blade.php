@@ -60,15 +60,15 @@
     <fieldset class="form-group">
         {{ Form::submit('提交',['class'=>'btn btn-block btn-primary' ]) }}
     </fieldset>
-    @push('styles')
+    @section('css')
     <link href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet">
-    @endpush
-    @push('scripts')
+    @endsection
+    @section('js')
     <script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
     <script type="text/javascript">
         $('#tag').select2({tags:true});
     </script>
-    @endpush
+    @endsection
     {!! Form::close() !!}
 
 @stop

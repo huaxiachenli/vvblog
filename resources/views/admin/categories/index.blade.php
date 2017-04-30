@@ -5,9 +5,9 @@
 @section('content_header')
     <h1>欢迎{{ Auth::user()->name  }} </h1>
 @stop
-@push('scripts')
+@section('js')
 <script src="/js/application.js"></script>
-@endpush
+@endsection
 @section('content')
         <br>
 
