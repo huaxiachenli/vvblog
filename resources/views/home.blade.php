@@ -92,4 +92,5 @@
     <p>
         发表评论数：{{ count($user->comments) }}
     </p>
+    <a class="btn btn-success" href="{{ url()->route('users.articles.index',[Auth::user()->id]) }}">回到首页</a>
 @stop
