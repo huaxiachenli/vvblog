@@ -4,15 +4,17 @@
 @section('adminlte_css')
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
-    <link rel="stylesheet" href="/css/bootstrap-markdown.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap-markdown/2.10.0/css/bootstrap-markdown.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/application.css">
 @endsection
 
 @section('body_class', 'layout-top-nav skin-blue')
 @section('adminlte_js')
-    <script src="/js/markdown.js"></script>
-    <script src="/js/to-markdown.min.js"></script>
-    <script src="/js/bootstrap-markdown.js"></script>
+    {{--<script src="/js/markdown.js"></script>--}}
+    <script src="https://cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js"></script>
+    {{--<script src="/js/to-markdown.min.js"></script>--}}
+    <script src="https://cdn.bootcss.com/to-markdown/3.0.4/to-markdown.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-markdown/2.10.0/js/bootstrap-markdown.min.js"></script>
     <script src="/js/bootstrap-markdown.zh.js"></script>
     <script>
 
@@ -26,10 +28,6 @@
     <script src="https://cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 <script src="/js/application.js"></script>
-@endsection
-@section('css')
-    <link rel="stylesheet" href="/css/bootstrap-markdown.min.css">
-<link rel="stylesheet" href="/css/application.css">
 @endsection
 
 @section('body')
