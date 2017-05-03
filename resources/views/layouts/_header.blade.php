@@ -1,5 +1,5 @@
 <header class="container-fluid bg-green-active text-center " id="logo">
-        <img src=" {{ asset($user->logo) }}" alt="" width="120px" height="120px" class="img-circle">
+        <img src=" {{ asset($user->logo) }}" alt="" width="120px" height="120px" class="img-circle" style="margin-top: 10px">
     <p>
         @if($professions = $user->professions)
             @foreach($professions as $profession)

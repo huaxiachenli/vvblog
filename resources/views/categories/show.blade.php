@@ -18,7 +18,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <ol class="breadcrumb">
+                    <ol class="breadcrumb" style="margin: 20px 0">
                         <li><a href="{{ url()->route('users.articles.index',['user_id'=>$user->id]) }}">首页</a></li>
                         <li><a href="{{ url()->route('users.categories.show',['user_id'=>$user->id,'category'=>$category->id]) }}">{{ $category->name }}</a></li>
                     </ol>
