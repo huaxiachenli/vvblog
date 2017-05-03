@@ -1,13 +1,15 @@
 @extends('adminlte::master')
 
-@section('adminlte_css')
 
+@section('adminlte_css')
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
-    @yield('css')
-@stop
+    <link rel="stylesheet" href="/css/bootstrap-markdown.min.css">
+    <link rel="stylesheet" href="/css/application.css">
+@endsection
+
 @section('body_class', 'layout-top-nav skin-blue')
-@section('js')
+@section('adminlte_js')
     <script src="/js/markdown.js"></script>
     <script src="/js/to-markdown.min.js"></script>
     <script src="/js/bootstrap-markdown.js"></script>
@@ -158,14 +160,10 @@
            </aside>
        </div>
    </div>
+
+
+
     @include('articles._modalForm');
-   @push('scripts')
-
-   @endpush
-   @push('styles')
-
-
-   @endpush
 
 
 {{ Form::text('abc',null,['id'=>'test']) }}

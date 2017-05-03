@@ -157,16 +157,33 @@ $(document).ready(function () {
             dataType: 'json',
             data: {article_id: $('#article').data('article-id'), content: $('#markdown').val(), parent_id: 0},
             success: function success(data) {
-                $('#commentList').append('<div class="meida">' + '<a href="" class="media-left">' + '<img src="' + $('#imgUrl').attr('src') + '" alt="" width="80" height="80">' + '</a>' + '<div class="media-body" data-comment-id="' + data.commentId + '">' + '<h6 class="media-heading">' + $('#userName').text() + '<small>' + data.createdAt + ' #' + data.floor + '</small>' + '</h6>' + data.content + '<div class="text-xs-right">' + '<button class="btn btn-outline-info reply">' + '回复' + '</button>' + '</div>' + '</div>' + '</div>' + '<hr>');
+                $('#commentList').append(`
+                        <div class="meida">
+                            <a href="" class="media-left">
+                                <img src="${$('#imgUrl').attr('src')}" alt="" width="80" height="80">
+                            </a>
+                            <div class="media-body" data-comment-id="${data.commentId}">
+                                <h6 class="media-heading">
+                                <span class="user-name">${$('#userName').text()}</span>
+                                 <small>${data.createdAt} #${data.floor}</small></h6>
+                                <p>${data.content}</p>
+                        
+                                <div class="text-right"><button class="btn btn-info reply">回复</button></div>
+                            </div>
+                        </div>
+                        <hr>
+                `);
                 $('#markdown').val('');
             }
         });
     });
     //启动模态框
     $('.reply').click(function () {
+        var replyUserName = $(this).parent().parent().find('.user-name').text();
         var commentId = $(this).parent().parent().attr('data-comment-id');
         $('#myModal').attr('data-parent-id', commentId);
         $('#myModal').modal('show');
+        $('#myModal').find('textarea').val(`回复${replyUserName}:`);
     });
     $('.replyBtn').click(function () {
         var content = $(this).parent().prev().find('textarea').val();
@@ -186,11 +203,11 @@ $(document).ready(function () {
                 <img src="${$('#imgUrl').attr('src')}" width="80" height="80">
             </a>
         <div class="media-body" data-comment-id="${data.commentId}">
-            <h6 class="media-heading">${$('#userName').text()} <small>${data.createAt}</small></h6>
+            <h6 class="media-heading"><span class="user-name">${$('#userName').text()}</span> <small>${data.createAt}</small></h6>
             ${data.content}
     
-            <div class="text-xs-right">
-              <button class="btn btn-outline-info reply">回复</button>
+            <div class="text-right">
+              <button class="btn btn-info reply">回复</button>
             </div>
         </div>
     </div>`);

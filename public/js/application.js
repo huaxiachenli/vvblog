@@ -145,16 +145,18 @@ $(document).ready(function () {
             dataType: 'json',
             data: { article_id: $('#article').data('article-id'), content: $('#markdown').val(), parent_id: 0 },
             success: function success(data) {
-                $('#commentList').append('<div class="meida">' + '<a href="" class="media-left">' + '<img src="' + $('#imgUrl').attr('src') + '" alt="" width="80" height="80">' + '</a>' + '<div class="media-body" data-comment-id="' + data.commentId + '">' + '<h6 class="media-heading">' + $('#userName').text() + '<small>' + data.createdAt + ' #' + data.floor + '</small>' + '</h6>' + data.content + '<div class="text-xs-right">' + '<button class="btn btn-outline-info reply">' + '回复' + '</button>' + '</div>' + '</div>' + '</div>' + '<hr>');
+                $('#commentList').append('\n                        <div class="meida">\n                            <a href="" class="media-left">\n                                <img src="' + $('#imgUrl').attr('src') + '" alt="" width="80" height="80">\n                            </a>\n                            <div class="media-body" data-comment-id="' + data.commentId + '">\n                                <h6 class="media-heading">\n                                <span class="user-name">' + $('#userName').text() + '</span>\n                                 <small>' + data.createdAt + ' #' + data.floor + '</small></h6>\n                                <p>' + data.content + '</p>\n                        \n                                <div class="text-right"><button class="btn btn-info reply">\u56DE\u590D</button></div>\n                            </div>\n                        </div>\n                        <hr>\n                ');
                 $('#markdown').val('');
             }
         });
     });
     //启动模态框
     $('.reply').click(function () {
+        var replyUserName = $(this).parent().parent().find('.user-name').text();
         var commentId = $(this).parent().parent().attr('data-comment-id');
         $('#myModal').attr('data-parent-id', commentId);
         $('#myModal').modal('show');
+        $('#myModal').find('textarea').val('\u56DE\u590D' + replyUserName + ':');
     });
     $('.replyBtn').click(function () {
         var content = $(this).parent().prev().find('textarea').val();
@@ -168,7 +170,7 @@ $(document).ready(function () {
                 parent_id: $('#myModal').attr('data-parent-id')
             },
             success: function success(data) {
-                $('#commentList').append('<div class="meida">\n            <a href="" class="media-left">\n                <img src="' + $('#imgUrl').attr('src') + '" width="80" height="80">\n            </a>\n        <div class="media-body" data-comment-id="' + data.commentId + '">\n            <h6 class="media-heading">' + $('#userName').text() + ' <small>' + data.createAt + '</small></h6>\n            ' + data.content + '\n    \n            <div class="text-xs-right">\n              <button class="btn btn-outline-info reply">\u56DE\u590D</button>\n            </div>\n        </div>\n    </div>');
+                $('#commentList').append('<div class="meida">\n            <a href="" class="media-left">\n                <img src="' + $('#imgUrl').attr('src') + '" width="80" height="80">\n            </a>\n        <div class="media-body" data-comment-id="' + data.commentId + '">\n            <h6 class="media-heading"><span class="user-name">' + $('#userName').text() + '</span> <small>' + data.createAt + '</small></h6>\n            ' + data.content + '\n    \n            <div class="text-right">\n              <button class="btn btn-info reply">\u56DE\u590D</button>\n            </div>\n        </div>\n    </div>');
                 $('#myModal').modal('hide').find('textarea').val('');
             }
         });
@@ -251,6 +253,7 @@ $(document).ready(function () {
         }
     });
 });
+
 
 
 //# sourceMappingURL=application.js.map
