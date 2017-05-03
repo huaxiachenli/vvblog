@@ -3,13 +3,12 @@
 @section('adminlte_css')
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
-    @stack('css')
-    @yield('css')
-@stop
+
+
+@endsection
 @section('body_class', 'layout-top-nav skin-blue')
-@push('styles')
-<link rel="stylesheet" href="/css/application.css">
-@endpush
+@section('adminlte_js')
+@endsection
 
 @section('body')
     <div>
@@ -39,3 +38,4 @@
         </div>
 
     </div>
+@endsection
