@@ -60,6 +60,10 @@
                        {!! $article->parseContent !!}
                    </div>
                </div>
+               <div class="text-center">
+                   {!! QrCode::size(200)->generate(Request::url()) !!}
+                   <p>扫我使用手机打开哦</p>
+               </div>
 
                <hr>
                <div id="commentList">

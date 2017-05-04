@@ -171,6 +171,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         YuanChao\Editor\EndaEditorServiceProvider::class,
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
 
         /*
@@ -245,6 +246,7 @@ return [
         'Javascript'=>\Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ],
 
 ];
