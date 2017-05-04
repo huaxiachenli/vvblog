@@ -12,6 +12,14 @@ use YuanChao\Editor\EndaEditor;
 class ArticlesController extends Controller
 {
     /**
+     * ArticlesController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
