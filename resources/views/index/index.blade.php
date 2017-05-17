@@ -22,7 +22,10 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="navbar-collapse">
-
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/login">登录</a></li>
+                            <li><a href="/register">注册</a></li>
+                        </ul>
 
 
                     </div><!-- /.navbar-collapse -->
