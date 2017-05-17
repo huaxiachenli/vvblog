@@ -48,7 +48,7 @@
 
     <fieldset class="form-group">
         {{ Form::label('tag','标签') }}
-        {{ Form::select('tag[]',Auth::user()->tags->pluck('name','name'),null,['class'=>'form-control','id'=>'tag','required'=>'required','multiple']) }}
+        {{ Form::select('tag_list[]',Auth::user()->tags->pluck('name','name'),$article->tag_list,['class'=>'form-control','id'=>'tag','required'=>'required','multiple']) }}
     </fieldset>
 
     <fieldset class="form-group">

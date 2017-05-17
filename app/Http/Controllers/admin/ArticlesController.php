@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Article;
 use App\Tag;
 use YuanChao\Editor\EndaEditor;
+use App\ChildCategory;
+use App\ArticleTag;
 
 class ArticlesController extends Controller
 {
@@ -77,7 +79,7 @@ class ArticlesController extends Controller
             'intro'=>$request->input('intro'),
             'logo'=>$path
         ]);
-
+//        $article->tags()->attach($request->tag_list,['user_id'=>Auth::user()->id]);
         if ($article->save()){
 
             foreach ($request->tag as $tag){
@@ -117,7 +119,7 @@ class ArticlesController extends Controller
         $article = Article::find($id);
         $tags = Auth::user()->tags()->pluck('name');
 
-        return view('admin.articles.edit')->with(['article'=>$article,'tags'=>$tags]);
+        return view('admin.articles.edit')->with(['article'=>$article,'tags'=>$tags,'tag_list'=>$article->tagList]);
     }
 
     /**
@@ -130,6 +132,8 @@ class ArticlesController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+//        dd($request->tag_list);
         $child_category = ChildCategory::findOrFail($request->input('child_category_id'));
         $article = Article::find($id);
         $article->update([
@@ -140,8 +144,12 @@ class ArticlesController extends Controller
             'child_category_id'=>$child_category->id,
             'intro'=>$request->input('intro'),
         ]);
+//        foreach ($request->tag_list as $tagId){
+//            $article->tags->sync($tagId,['user_id'=>Auth::user()->id]);
+//        }
+//        $article->tags()->withPivot(['user_id'=>Auth::user()->id])->sync($request->tag_list);
         ArticleTag::where('article_id',$id)->delete();
-        foreach ($request->tag as $tag){
+        foreach ($request->tag_list as $tag){
             $collectTag = Tag::firstOrCreate(['name'=>$tag]);
 
             ArticleTag::create(['user_id'=>Auth::user()->id,'article_id'=>$id,'tag_id'=>$collectTag->id]);
@@ -149,7 +157,7 @@ class ArticlesController extends Controller
         }
 
         \Session::flash('success','保存成功');
-        return redirect()->route('articles.show',[Auth::user()->id,$id])->with(['user'=>Auth::user(),'article'=>$article]);
+        return redirect()->route('articles.index')->with(['user'=>Auth::user(),'article'=>$article]);
 
     }
 

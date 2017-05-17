@@ -45,7 +45,7 @@ class Article extends Model
     }
 
     public function getTagListAttribute(){
-        return $this->tags->pluck('id')->all();
+        return $this->tags->pluck('name')->all();
     }
 
     public function getParseContentAttribute()

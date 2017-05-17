@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\ArticleTag;
+//use App\ArticleTag;
 use App\ChildCategory;
 use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Javascript;
+
 
 class ArticlesController extends Controller
 {
@@ -93,13 +94,13 @@ class ArticlesController extends Controller
             'intro'=>$request->input('intro'),
             'logo'=>$path
         ]);
-
+        $article->tags()->attach($request->tag_list);
         if ($article->save()){
 
-            foreach ($request->tag as $tag){
-                $currentTag = Tag::firstOrCreate(['name'=>$tag]);
-                $article->tags()->attach($currentTag,['user_id'=>Auth::user()->id]);
-            }
+//            foreach ($request->tag as $tag){
+//                $currentTag = Tag::firstOrCreate(['name'=>$tag]);
+//                $article->tags()->attach($currentTag,['user_id'=>Auth::user()->id]);
+//            }
             \Session::flash('success','保存成功');
             return redirect()->route('articles.show',[$article->user_id,$article->id])->with(['user'=>$user]);
         }else{
@@ -142,7 +143,8 @@ class ArticlesController extends Controller
         $article = Article::find($id);
         $tags = $user->tags()->pluck('name');
 
-        return view('articles.edit')->with(['article'=>$article,'user'=>$user,'tags'=>$tags]);
+
+        return view('articles.edit')->with(['article'=>$article,'user'=>$user,'tags'=>$tags,'tag_list'=>$article->tagList]);
     }
 
     /**
@@ -157,7 +159,7 @@ class ArticlesController extends Controller
 
         //
         $child_category = ChildCategory::findOrFail($request->input('child_category_id'));
-        $article = Article::find($id);
+        $article = Auth::user()->articles()->find($id);
         $article->update([
             'user_id'=>Auth::user()->id,
             'title'=>$request->input('title'),
@@ -166,13 +168,14 @@ class ArticlesController extends Controller
             'child_category_id'=>$child_category->id,
             'intro'=>$request->input('intro'),
         ]);
-        ArticleTag::where('article_id',$id)->delete();
-        foreach ($request->tag as $tag){
-            $collectTag = Tag::firstOrCreate(['name'=>$tag]);
-
-               ArticleTag::create(['user_id'=>Auth::user()->id,'article_id'=>$id,'tag_id'=>$collectTag->id]);
-
-        }
+        $article->tags()->sync($request->tag_list);
+//        ArticleTag::where('article_id',$id)->delete();
+//        foreach ($request->tag as $tag){
+//            $collectTag = Tag::firstOrCreate(['name'=>$tag]);
+//
+//               ArticleTag::create(['user_id'=>Auth::user()->id,'article_id'=>$id,'tag_id'=>$collectTag->id]);
+//
+//        }
 
         \Session::flash('success','保存成功');
         return redirect()->route('articles.show',[Auth::user()->id,$id])->with(['user'=>Auth::user(),'article'=>$article]);
