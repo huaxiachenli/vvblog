@@ -64,7 +64,7 @@ Route::resource('articles','admin\ArticlesController');
 Route::resource('admin/child_categories','admin\ChildCategoriesController',['only'=>['store','destroy','show']]);
 Route::get('/','IndexController@index');
 Route::resource('admin/professions','admin\ProfessionsController',['only'=>['store','destroy','show']]);
-
+Route::get('admin/collects','admin\CollectsController@index');
 Auth::routes();
 
 

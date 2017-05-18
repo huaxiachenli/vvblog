@@ -138,6 +138,12 @@ return [
             'icon'        => 'diamond',
             'label_color' => 'success',
         ],
+        [
+            'text'        => '文章收藏',
+            'url'         => 'admin/collects',
+            'icon'        => 'star',
+            'label_color' => 'success'
+        ],
     ],
 
     /*
