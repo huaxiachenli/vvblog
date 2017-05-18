@@ -18,6 +18,6 @@ class Comment extends Model
     public function getContentAttribute($value)
     {
         $parse = new GithubMarkdown();
-        return $parse->parse($value);
+        return $parse->parse( $value );
     }
 }
