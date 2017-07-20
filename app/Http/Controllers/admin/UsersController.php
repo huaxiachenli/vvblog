@@ -82,6 +82,11 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+       'name'=>'required|max:30',
+       'email'=>'required|email',
+       'logo'=>'mimes:jpeg,bmp,png,jpg',
+       ]);
         $user = Auth::user();
         if ($request->hasFile('avatar')){
             $filename = $request->file('avatar')->getClientOriginalName();
