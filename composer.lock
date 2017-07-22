@@ -492,12 +492,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/huaxiachenli/laravel-adminlte.git",
-                "reference": "27022fcd709c27bd7af93dd10c1e656d9bae2380"
+                "reference": "26fd8d5470a537c34f369ea4752323f1fd8ddfe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/huaxiachenli/laravel-adminlte/27022fcd709c27bd7af93dd10c1e656d9bae2380.zip",
-                "reference": "27022fcd709c27bd7af93dd10c1e656d9bae2380",
+                "url": "https://files.phpcomposer.com/files/huaxiachenli/laravel-adminlte/26fd8d5470a537c34f369ea4752323f1fd8ddfe1.zip",
+                "reference": "26fd8d5470a537c34f369ea4752323f1fd8ddfe1",
                 "shasum": ""
             },
             "require": {
@@ -530,7 +530,7 @@
                 "administrator",
                 "laravel"
             ],
-            "time": "2017-07-22T06:47:57+00:00"
+            "time": "2017-07-22T08:43:20+00:00"
         },
         {
             "name": "intervention/image",
