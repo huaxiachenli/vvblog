@@ -59,6 +59,10 @@
                    <div>
                        {!! $article->parseContent !!}
                    </div>
+                   <div class="text-center">
+                        {!! QrCode::size(300)->generate(Request::url()); !!}
+                        <div class="text-info"><i class="fa fa-mobile" aria-hidden="true"></i> 手机查看</div>
+                    </div>
                </div>
 
 
