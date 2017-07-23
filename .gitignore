@@ -1,6 +1,8 @@
 /node_modules
 /public/storage
 /public/path
+/public/avatar
+/public/smallavatar
 /public/uploads
 /storage/*.key
 /vendor
