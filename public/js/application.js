@@ -2,7 +2,7 @@
 
 $.ajaxSetup({
     headers: {
-        'X-CSRF-TOKEN': $.cookie('XSRF-TOKEN')
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
 //删除一级菜单
