@@ -152,7 +152,7 @@
                        <i class="fa fa-user" aria-hidden="true"></i> 作者其他类似文章
                    </a>
                    @foreach($article->category->articles as $userArticle)
-                       @unless($userArticle==$article)
+                       @unless($userArticle != $article)
                            <a href="{{ url()->route('users.articles.show',[$userArticle->user_id,$userArticle->id]) }}" class="list-group-item">
                                {{ $userArticle->title }}
                                <span class=" pull-right"><i class="fa fa-eye" aria-hidden="true"></i> {{ $userArticle->view_count }} </span>
