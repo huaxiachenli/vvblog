@@ -30,7 +30,7 @@
                         @foreach(Auth::user()->articles()->orderBy('id','desc')->get()  as $article )
                         <tr data-article-id="{{ $article->id }}">
                             <td>{{ $loop->iteration }}</td>
-                            <td><a href="{{ url()->route('articles.edit',['article_id'=>$article->id]) }}">
+                            <td><a href="{{ route('users.articles.show',[$article->user_id,$article->id]) }}">
                                     {{ $article->title }}
                                 </a></td>
                             <td class="text-right">
