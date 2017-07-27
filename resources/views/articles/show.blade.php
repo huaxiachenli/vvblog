@@ -52,7 +52,9 @@
                        <span>发布时间:{{ $article->created_at->toDateString() }}</span> <span>浏览量:{{ $article->view_count }}</span> <span>作者:{{$article->user->name}}</span>
                        <span>标签：
                             @foreach($article->tags as $tag)
-                                <i class="label label-default">{{ $tag->name }}</i>
+                                <a href="{{ url()->route('tag',[$user->id,$tag->name]) }}">
+                                    <i class="label label-default">{{ $tag->name }}</i>
+                                </a>    
                             @endforeach
                        </span>
                    </p>
