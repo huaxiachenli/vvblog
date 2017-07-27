@@ -23,8 +23,31 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
+                            @if(Auth::check())
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->name }}<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href=""></a></li>
+                                    <li>
+                                        <a href="{{ url('/logout') }}" class="dropdown-item"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            退出登录
+                                        </a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                    <li><a href="/home">进入控制台</a></li>
+                                    <li><a href="{{ url()->route('users.articles.index',Auth::user()->id) }}">个人主页</a></li>
+                                </ul>
+                            </li>
+                        
+                            @else
                             <li><a href="/login">登录</a></li>
                             <li><a href="/register">注册</a></li>
+                            @endif
                         </ul>
 
 
