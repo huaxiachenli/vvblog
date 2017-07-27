@@ -229,7 +229,7 @@ class ArticlesController extends Controller
         $articles = $user->articles()
             ->where('title','like','%'.$request->input('search').'%')
             ->orWhere('intro','like','%'.$request->input('search').'%')->paginate(5);
-        return view('articles.search')->with(['articles'=>$articles,'user'=>$user]);
+        return view('articles.search')->with(['articles'=>$articles,'user'=>$user,'search'=>$request->input('search')]);
     }
 
 
