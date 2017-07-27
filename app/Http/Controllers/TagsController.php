@@ -12,6 +12,6 @@ class TagsController extends Controller
     {
        $user = User::find($user_id);
         $articles = $user->tags()->where('name',$tag)->first()->articles()->paginate();
-        return view('tags.show')->with(['articles'=>$articles,'user'=>$user]);
+        return view('tags.show')->with(['articles'=>$articles,'user'=>$user,'tag'=>$tag]);
     }
 }
