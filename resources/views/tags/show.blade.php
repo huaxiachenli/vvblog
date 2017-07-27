@@ -21,8 +21,8 @@
                     <ol class="breadcrumb" style="margin: 20px 0">
                         <li><a href="{{ url()->route('users.articles.index',$user->id) }}">{{ $user->name }}</a></li>
                         <li>tag</li>
-                        <li>{{ $tag }}</li>
-                        <li class="active">{{ $article->title }}</li>
+                        <li class="active">{{ $tag }}</li>
+
                     </ol>
                 </div>
                 <div class="col-md-8">
