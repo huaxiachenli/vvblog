@@ -160,6 +160,7 @@
                        @endif
                    @endforeach
                </div>
+               @include('shares._tagCloud')
            </aside>
        </div>
    </div>
