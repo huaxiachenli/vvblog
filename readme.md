@@ -37,6 +37,12 @@ I believe it will be better and better. If you are interested in this, you can j
 - Tokenizer PHP Extension
 - XML PHP Extension
 
+# Server Environment
+
+- nginx 1.10+
+- php 5.6+
+- Mysql 5.7+
+
 ## Preview
 
 <https://vvblog.top/users/1/articles/4>
