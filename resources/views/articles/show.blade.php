@@ -5,6 +5,7 @@
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
     <link href="https://cdn.bootcss.com/bootstrap-markdown/2.10.0/css/bootstrap-markdown.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/imageviewer/0.5.1/viewer.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/application.css">
 @endsection
 
@@ -27,7 +28,11 @@
     <script src="/js/jquery.hotkeys.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-<script src="/js/application.js"></script>
+    <script src="/js/application.js"></script>
+    <script src="https://cdn.bootcss.com/imageviewer/0.5.1/viewer.min.js"></script>i
+    <script>
+	$("#article").viewer({navbar:false});
+    </script>
 @endsection
 
 @section('body')

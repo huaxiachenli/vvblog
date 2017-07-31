@@ -15,8 +15,7 @@
             <h3 class="box-title">收藏的文章</h3>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
-            <table class="table table-bordered">
+            <table class="table table-bordered box-body">
                 <tbody>
                 <tr>
                     <th style="width: 10px">#</th>
@@ -37,6 +36,5 @@
 
                 </tbody>
             </table>
-        </div>
     </div>
 @stop
