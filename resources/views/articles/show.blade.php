@@ -6,6 +6,7 @@
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
     <link href="https://cdn.bootcss.com/bootstrap-markdown/2.10.0/css/bootstrap-markdown.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/imageviewer/0.5.1/viewer.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/application.css">
 @endsection
 
@@ -32,7 +33,9 @@
     <script src="https://cdn.bootcss.com/imageviewer/0.5.1/viewer.min.js"></script>i
     <script>
 	$("#article").viewer({navbar:false});
+    
     </script>
+    <script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js"></script>
 @endsection
 
 @section('body')
@@ -148,8 +151,7 @@
                        </p>
                        <hr>
                        <p class="text-center">
-                       <div class="bdsharebuttonbox "><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
-
+                            <div class="social-share"></div>    
                        </p>
                    </div>
                </div>
@@ -174,5 +176,4 @@
 
 
 
-   <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 @endsection
