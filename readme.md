@@ -84,7 +84,7 @@ php artisan migrate
 php artisan key:generate
 ```
 
-### 4. Run the artisan serve command, the command will run the `php -S localhost:8000` for the Application,you can open the browser in <http://127.0.0.1> for preview
+### 5. Run the artisan serve command, the command will run the `php -S localhost:8000` for the Application,you can open the browser in <http://127.0.0.1> for preview
 
 ```shell
 php artisan serve
