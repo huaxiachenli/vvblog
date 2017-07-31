@@ -1,8 +1,24 @@
 
-
+function getCookie(cookie_name)
+{
+    var allcookies = document.cookie;
+    var cookie_start = allcookies.indexOf(cookie_name); //寻找名第一次出现的位置
+    // 如果找到了就代表cookie存在
+    // 反之，就说明不存在。  
+    if (cookie_start != -1)
+    {
+        // 把cookie_start放在值的开始，只要给值加1即可。  
+        cookie_start += cookie_name.length + 1; 
+        var cookie_end = allcookies.indexOf(';', cookie_start);
+        if (cookie_end == -1)
+        {
+            cookie_end = allcookies.length;
+        }
+    }
+}    
 $.ajaxSetup({
     headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        'X-CSRF-TOKEN': getCookie('XSRF-TOKEN')
     }
 });
 //删除一级菜单

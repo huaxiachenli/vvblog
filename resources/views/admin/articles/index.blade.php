@@ -19,8 +19,7 @@
 
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered box-body">
                         <tbody>
                         <tr>
                             <th>序号</th>
@@ -41,7 +40,6 @@
                         @endforeach
                         </tbody>
                     </table>
-                </div>
             </div>
         </div>
     </div>
