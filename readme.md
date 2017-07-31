@@ -75,7 +75,7 @@ php artisan migrate
 ### 4. Run the artisan key:generate command, the command will generate the key in `.env` file
 
 ```shell
-php artisan migrate
+php artisan key:generate
 ```
 
 ### 4. Run the artisan serve command, the command will run the `php -S localhost:8000` for the Application,you can open the browser in <http://127.0.0.1> for preview
