@@ -53,7 +53,7 @@ I believe it will be better and better. If you are interested in this, you can j
 ### 1. Clone the source code or create new project.
 
 ```shell
-git clone https://github.com/jcc/blog.git
+git clone https://github.com/huaxiachenli/blog.git
 ```
 
 
