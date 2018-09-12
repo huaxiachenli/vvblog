@@ -1,7 +1,7 @@
 
 <p align="center">🎈 vvblog is an open source blog built with Laravel <a href="https://vvblog.top">https://vvblog.top</a></p>
 <hr />
-<p align="center"><img src="https://vvblog.top/path/95b1b26f3e1b622b640229112d92fac4.png"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/huaxiachenli/vvblog/master/screenshot/user%20index%20page.png"/></p>
 
 
 # **VVB**log
